@@ -1,0 +1,468 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f3f3f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #fafafc;
+  --color-elevated: #ffffff;
+  --color-line: #e4e4ec;
+  --color-line-strong: #d4d4de;
+  --color-ink: #14141a;
+  --color-ink-soft: #3f3f4b;
+  --color-muted: #6b6b7a;
+  --color-accent: #7c5cff;
+  --color-accent-soft: #efeaff;
+  --color-accent-ink: #5b3df5;
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --radius-card: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #141418;
+    --color-surface: #1e1e24;
+    --color-surface-2: #232329;
+    --color-elevated: #2a2a32;
+    --color-line: #2e2e38;
+    --color-line-strong: #3b3b47;
+    --color-ink: #f4f4f8;
+    --color-ink-soft: #d4d4de;
+    --color-muted: #9c9cab;
+    --color-accent: #9b82ff;
+    --color-accent-soft: #2a2440;
+    --color-accent-ink: #c0b2ff;
+  }
+}
+
+/* ---------------------------------------------------------- liquid glass */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-panel: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.92);
+  --glass-hi: rgba(255, 255, 255, 0.98);
+  --glass-lo: rgba(18, 18, 34, 0.08);
+  --glass-sheen: rgba(255, 255, 255, 0.75);
+  --glass-ring: rgba(20, 20, 34, 0.06);
+  --glass-lift: 0 10px 26px -14px rgba(20, 18, 46, 0.42);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.075);
+    --glass-panel: rgba(38, 38, 48, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-hi: rgba(255, 255, 255, 0.26);
+    --glass-lo: rgba(0, 0, 0, 0.36);
+    --glass-sheen: rgba(255, 255, 255, 0.16);
+    --glass-ring: rgba(255, 255, 255, 0.08);
+    --glass-lift: 0 12px 30px -16px rgba(0, 0, 0, 0.75);
+  }
+}
+
+/* botão de vidro: tint + frost + aro especular + brilho que passa no hover */
+.glass-btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 55%),
+    var(--glass-bg);
+  color: var(--color-ink);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 var(--glass-lo),
+    var(--glass-lift);
+  transition:
+    transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    filter 0.18s ease;
+  cursor: pointer;
+}
+
+.glass-btn::after {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -130%;
+  width: 55%;
+  height: 240%;
+  pointer-events: none;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, var(--glass-sheen), transparent);
+  opacity: 0.65;
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .glass-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow:
+      inset 0 1px 0 var(--glass-hi),
+      inset 0 -1px 0 var(--glass-lo),
+      0 16px 34px -18px rgba(20, 18, 46, 0.55);
+  }
+  .glass-btn:hover::after {
+    transform: rotate(18deg) translateX(420%);
+  }
+}
+
+.glass-btn:active {
+  transform: scale(0.972);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 2px 6px var(--glass-lo),
+    0 4px 12px -8px rgba(0, 0, 0, 0.4);
+}
+
+.glass-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.glass-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  filter: grayscale(0.35);
+  transform: none;
+}
+
+/* variante tingida de roxo, como o botão proeminente da Apple */
+.glass-btn-accent {
+  border-color: rgba(255, 255, 255, 0.34);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.04) 52%, rgba(0, 0, 0, 0.05)),
+    linear-gradient(135deg, #a78bfa 0%, #7c5cff 46%, #5b3df5 100%);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(28, 12, 72, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.62),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22),
+    0 12px 26px -14px rgba(91, 61, 245, 0.85),
+    0 2px 6px -4px rgba(28, 12, 72, 0.5);
+}
+
+.glass-btn-accent::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+}
+
+/* versão discreta, sem tinta, para ações secundárias */
+.glass-btn-quiet {
+  color: var(--color-ink-soft);
+}
+
+/* botão circular (3 pontinhos e cia.) */
+.glass-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 60%),
+    var(--glass-bg);
+  color: var(--color-ink-soft);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 var(--glass-lo),
+    0 6px 16px -10px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.16s ease,
+    color 0.16s ease,
+    background-color 0.16s ease;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .glass-icon:hover {
+    transform: translateY(-1px);
+    color: var(--color-ink);
+  }
+}
+
+.glass-icon:active {
+  transform: scale(0.94);
+}
+
+.glass-icon[aria-expanded="true"] {
+  color: var(--color-accent-ink);
+  background: color-mix(in srgb, var(--color-accent) 22%, var(--glass-bg));
+}
+
+.glass-icon:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* painel do menu suspenso */
+.glass-menu {
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-panel);
+  backdrop-filter: blur(34px) saturate(190%);
+  -webkit-backdrop-filter: blur(34px) saturate(190%);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    0 30px 60px -30px rgba(0, 0, 0, 0.8),
+    0 6px 18px -12px rgba(0, 0, 0, 0.5);
+  padding: 6px;
+  animation: glass-pop 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes glass-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.glass-menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-align: left;
+  transition: background-color 0.14s ease, color 0.14s ease;
+  cursor: pointer;
+}
+
+.glass-menu-item:hover {
+  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.glass-menu-item--danger {
+  color: #f2637c;
+}
+
+.glass-menu-item--danger:hover {
+  background: rgba(242, 99, 124, 0.16);
+  color: #ff7d93;
+}
+
+.glass-menu-sep {
+  height: 1px;
+  margin: 5px 6px;
+  background: color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+/* cartão de app com superfície de vidro */
+.glass-card {
+  border-radius: 22px;
+  border: 1px solid var(--glass-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015) 46%, rgba(255, 255, 255, 0) 100%),
+    color-mix(in srgb, var(--color-surface) 58%, transparent);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    0 26px 54px -40px rgba(0, 0, 0, 0.85);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 var(--glass-hi),
+      0 32px 60px -38px rgba(0, 0, 0, 0.9);
+  }
+}
+
+/* banner que se dissolve no cartão em vez de terminar num corte seco */
+.banner-fade {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.6) 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, rgba(0, 0, 0, 0.6) 78%, transparent 100%);
+}
+
+/* etiqueta de vidro pequena (versão, local etc.) */
+.glass-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+/* scrollbars discretas, no estilo do Windows 11 */
+.scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-muted) 40%, transparent) transparent;
+}
+.scroll-area::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scroll-area::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-muted) 34%, transparent);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-muted) 60%, transparent);
+  background-clip: content-box;
+}
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-muted) 12%, transparent);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-muted) 14%, transparent),
+    transparent
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+.card-hover {
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.35);
+  border-color: var(--color-line-strong);
+}
+
+.glass {
+  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(140%);
+}
+
+.acrylic {
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--color-muted) 80%, transparent);
+}
+
+.field {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding: 9px 12px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 22%, transparent);
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}

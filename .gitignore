@@ -1,0 +1,24 @@
+# dependências
+node_modules/
+
+# builds e entregáveis
+dist/
+release/
+build/*.blockmap
+build/*.yml
+*.log
+
+# ambiente e segredos
+.env
+.env.*
+!.env.example
+.dev.vars
+*.pem
+*.key
+
+# arquivos locais da ferramenta
+.freebuff/
+.rea-tmp/
+.cloud-attachments/
+.DS_Store
+Thumbs.db
