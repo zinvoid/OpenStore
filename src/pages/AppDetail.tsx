@@ -23,8 +23,8 @@ import {
   ChevronDownIcon,
   DownloadIcon,
   EditIcon,
+  FolderIcon,
   GlobeIcon,
-  PlayIcon,
   ShieldIcon,
   StarIcon,
   TrashIcon,
@@ -145,11 +145,11 @@ export default function AppDetail() {
     }
   }
 
-  async function openInstalled() {
+  async function revealInstalled() {
     if (!app || !desktop) return
     setInstallError(null)
-    const result = await desktop.launch(app.slug)
-    if (!result.ok) setInstallError(result.error ?? 'Não foi possível abrir o app.')
+    const result = await desktop.reveal(app.slug)
+    if (!result.ok) setInstallError(result.error ?? 'Não foi possível abrir a pasta do app.')
   }
 
   function handleDownload(d: Download) {
@@ -303,7 +303,7 @@ export default function AppDetail() {
               detected={detected}
               chosen={chosen}
               onAction={(d) => void handleInstall(d)}
-              onOpen={() => void openInstalled()}
+              onReveal={() => void revealInstalled()}
               installed={installed}
               busy={Boolean(busyId)}
               progress={progress}
@@ -686,7 +686,7 @@ function DownloadPanel({
   detected,
   chosen,
   onAction,
-  onOpen,
+  onReveal,
   installed,
   busy,
   progress,
@@ -698,7 +698,7 @@ function DownloadPanel({
   detected: OSKey
   chosen: Download | null
   onAction: (d: Download) => void
-  onOpen: () => void
+  onReveal: () => void
   installed: InstalledApp | null
   busy: boolean
   progress: ProgressEvent | null
@@ -706,18 +706,19 @@ function DownloadPanel({
 }) {
   const [open, setOpen] = useState(false)
   const all = app.app_downloads ?? []
-  const canOpen = Boolean(installed?.exePath)
+  const canReveal = Boolean(installed?.exePath || installed?.installDir)
 
   return (
     <div className="w-full rounded-xl border border-line bg-surface p-3.5 shadow-[0_18px_40px_-30px_rgba(0,0,0,0.6)] lg:w-[338px]">
-      {canOpen ? (
+      {canReveal ? (
         <button
           type="button"
-          onClick={onOpen}
+          onClick={onReveal}
+          title={installed?.installDir ?? ''}
           className="glass-btn glass-btn-accent flex w-full items-center justify-center gap-2 px-4 py-2.5 text-[13px] font-semibold"
         >
-          <PlayIcon className="size-4" />
-          Abrir
+          <FolderIcon className="size-4" />
+          Abrir local
         </button>
       ) : chosen ? (
         <button

@@ -24,7 +24,6 @@ import {
   FolderIcon,
   LibraryIcon,
   MoreIcon,
-  PlayIcon,
   ShieldIcon,
   SyncIcon,
   TrashIcon,
@@ -257,13 +256,6 @@ function InstalledApps() {
     }
   }
 
-  function openApp(item: InstalledApp) {
-    void run(item.slug, async () => {
-      const result = await desktop!.launch(item.slug)
-      if (!result.ok) throw new Error(result.error)
-    })
-  }
-
   function reveal(item: InstalledApp) {
     void run(item.slug, async () => {
       const result = await desktop!.reveal(item.slug)
@@ -381,7 +373,7 @@ function InstalledApps() {
         <div>
           <h2 className="font-display text-[15px] font-semibold">Instalados neste PC</h2>
           <p className="mt-0.5 text-[11.5px] text-muted">
-            Abra com um clique, veja ou mude a pasta, busque o executável e troque de versão.
+            Abra a pasta onde o app foi instalado, mude o local, busque o executável e troque de versão.
           </p>
         </div>
         <button
@@ -418,8 +410,8 @@ function InstalledApps() {
           </span>
           <h3 className="mt-3 font-display text-[16px] font-semibold">Nenhum app instalado ainda</h3>
           <p className="mt-1 max-w-[420px] text-[12px] leading-relaxed text-muted">
-            Instale um app pela loja e ele vira um cartão aqui: abrir, local, mover, buscar o executável, versões e
-            desinstalar.
+            Instale um app pela loja e ele vira um cartão aqui: abrir a pasta local, mover, buscar o executável, versões
+            e desinstalar.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <Link to="/apps" className="glass-btn glass-btn-accent px-4 py-2 text-[12.5px] font-semibold">
@@ -439,6 +431,7 @@ function InstalledApps() {
             const running = busy === item.slug
             const live = progress?.slug === item.slug ? phaseLabel(progress) : null
             const missingExe = !item.exePath
+            const canReveal = Boolean(item.exePath || item.installDir)
             const accent = item.accent || accentFromString(item.name)
 
             return (
@@ -550,11 +543,11 @@ function InstalledApps() {
 
                   <button
                     type="button"
-                    onClick={() => openApp(item)}
-                    disabled={running || missingExe}
+                    onClick={() => reveal(item)}
+                    disabled={running || !canReveal}
                     className="glass-btn glass-btn-accent mt-3.5 w-full px-3 py-2 text-[12px] font-semibold"
                   >
-                    <PlayIcon className="size-3.5" /> {running ? 'Abrindo…' : 'Abrir'}
+                    <FolderIcon className="size-3.5" /> {running ? 'Abrindo local…' : 'Abrir local'}
                   </button>
 
                   {detected?.slug === item.slug && (
