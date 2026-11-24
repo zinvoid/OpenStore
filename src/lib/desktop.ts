@@ -97,6 +97,7 @@ interface DesktopBridge {
   security: () => Promise<{ clamav: ClamavInfo }>
   scan: (slug: string) => Promise<ScanResult>
   update: (payload: { url: string }) => Promise<{ ok: boolean; error?: string }>
+  windowControl: (action: 'minimize' | 'maximize' | 'close') => Promise<{ ok: boolean }>
   openExternal: (url: string) => Promise<{ ok: boolean }>
   onProgress: (callback: (event: ProgressEvent) => void) => () => void
   onUpdateProgress: (callback: (event: UpdateProgress) => void) => () => void

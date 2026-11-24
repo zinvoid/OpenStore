@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './supabase'
 import { desktop } from './desktop'
+import { GITHUB_RELEASES } from './site'
+import type { OSKey } from './platform'
 
 declare const __APP_VERSION__: string
 
@@ -92,4 +94,42 @@ export function openRelease(release: Release | null) {
   if (desktop) void desktop.openExternal(release.url)
   else window.open(release.url, '_blank', 'noopener,noreferrer')
   return true
+}
+
+/** Para onde o botão de download do site leva, de acordo com o sistema do visitante. */
+export interface DownloadTarget {
+  label: string
+  href: string
+  detail: string
+}
+
+export function siteDownload(release: Release | null, os: OSKey): DownloadTarget {
+  const version = release ? `Versão ${release.version} · ` : ''
+
+  if (os === 'linux') {
+    return {
+      label: 'Baixar para Linux',
+      href: release ? `${GITHUB_RELEASES}/tag/v${release.version.replace(/^v/i, '')}` : GITHUB_RELEASES,
+      detail: `${version}AppImage e .deb no GitHub`,
+    }
+  }
+  if (os === 'macos') {
+    return {
+      label: 'Baixar para macOS',
+      href: GITHUB_RELEASES,
+      detail: 'Build para macOS publicado no GitHub',
+    }
+  }
+  if (os === 'android' || os === 'ios') {
+    return {
+      label: 'Ver versões no GitHub',
+      href: GITHUB_RELEASES,
+      detail: 'Disponível para computador',
+    }
+  }
+  return {
+    label: 'Baixar para Windows',
+    href: release?.url ?? GITHUB_RELEASES,
+    detail: `${version}Windows 10/11 · x64`,
+  }
 }

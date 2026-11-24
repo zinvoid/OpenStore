@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { listApps } from '../lib/api'
 import type { AppWithDownloads } from '../lib/types'
 import { CATEGORIES } from '../lib/types'
@@ -151,12 +151,12 @@ export default function Browse() {
             <p className="mt-1 max-w-sm text-[12.5px] text-muted">
               Ajuste os filtros ou publique o primeiro app com esse nome.
             </p>
-            <a
-              href="#/publish"
+            <Link
+              to="/publish"
               className="glass-btn glass-btn-accent mt-4 px-4 py-2 text-[12.5px] font-semibold"
             >
               Publicar app
-            </a>
+            </Link>
           </div>
         )}
 

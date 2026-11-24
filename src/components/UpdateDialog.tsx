@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { findUpdate, openRelease, type Release } from '../lib/releases'
-import { desktop } from '../lib/desktop'
+import { desktop, isDesktop } from '../lib/desktop'
 
 const DISMISS_KEY = 'openstore.update.dismissed'
 const CHANNEL_KEY = 'openstore.update.channel'
@@ -62,9 +62,12 @@ export function UpdateDialog() {
     setDismissed(true)
   }
 
+  const autoInstall = Boolean(desktop && desktop.platform === 'win32')
+
   async function startUpdate() {
     if (!release.url) return
-    if (!desktop) {
+    // O instalador do canal é o .exe: fora do Windows, abre a página da versão.
+    if (!desktop || !autoInstall) {
       openRelease(release)
       return
     }
@@ -181,7 +184,7 @@ export function UpdateDialog() {
                   ? 'Instalador aberto'
                   : busy
                     ? 'Atualizando…'
-                    : desktop
+                    : autoInstall
                       ? 'Atualizar agora'
                       : 'Baixar atualização'}
               </button>
@@ -193,9 +196,11 @@ export function UpdateDialog() {
           </div>
 
           <p className="mt-3 text-[10.5px] text-muted">
-            {desktop
-              ? 'O download é feito aqui e o instalador abre em seguida.'
-              : 'Você será levado para o download do instalador.'}
+            {!isDesktop
+              ? 'Você será levado para o download do instalador.'
+              : autoInstall
+                ? 'O download é feito aqui e o instalador abre em seguida.'
+                : 'Você será levado para a página da versão no GitHub.'}
           </p>
         </div>
       </div>

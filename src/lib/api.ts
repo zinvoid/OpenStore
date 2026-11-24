@@ -20,7 +20,8 @@ export async function listApps(opts: ListOptions = {}): Promise<AppWithDownloads
   let request = supabase.from('apps').select(APP_SELECT)
 
   if (opts.query?.trim()) {
-    const q = opts.query.trim().replace(/[%,]/g, ' ')
+    // Remove caracteres que quebram a sintaxe de filtro do PostgREST.
+    const q = opts.query.trim().replace(/[%,()*:"\\]/g, ' ').replace(/\s+/g, ' ')
     request = request.or(`name.ilike.%${q}%,publisher.ilike.%${q}%,tagline.ilike.%${q}%,category.ilike.%${q}%`)
   }
   if (opts.category) request = request.eq('category', opts.category)

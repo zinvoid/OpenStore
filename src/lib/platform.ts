@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 export type OSKey = 'windows' | 'macos' | 'linux' | 'android' | 'ios' | 'web' | 'unknown'
 
 export interface PlatformMeta {
@@ -33,6 +35,15 @@ export function detectOS(): OSKey {
 
 export function osLabel(os: OSKey): string {
   return PLATFORMS[os]?.label ?? 'seu sistema'
+}
+
+/** Sistema do visitante, resolvido uma vez no cliente. */
+export function useDetectedOS(): OSKey {
+  const [os, setOs] = useState<OSKey>(() => detectOS())
+  useEffect(() => {
+    setOs(detectOS())
+  }, [])
+  return os
 }
 
 const ARCH_LABEL: Record<string, string> = {

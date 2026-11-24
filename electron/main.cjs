@@ -431,6 +431,8 @@ function createWindow() {
     backgroundColor: '#0f0f12',
     autoHideMenuBar: true,
     show: false,
+    // janela própria, sem a barra do Windows: o cabeçalho do app faz esse papel
+    ...(isWin ? { frame: false } : {}),
     title: 'OpenStore',
     icon: path.join(__dirname, '..', 'build', 'icon.png'),
     webPreferences: {
@@ -771,6 +773,15 @@ ipcMain.handle('os:apply', async (_event, payload) => {
   }
 })
 
+ipcMain.handle('os:window-control', (event, action) => {
+  const win = BrowserWindow.fromWebContents(event.sender)
+  if (!win) return { ok: false }
+  if (action === 'minimize') win.minimize()
+  else if (action === 'maximize') win.isMaximized() ? win.unmaximize() : win.maximize()
+  else if (action === 'close') win.close()
+  return { ok: true }
+})
+
 ipcMain.handle('os:openExternal', async (_event, url) => {
   if (/^https?:\/\//i.test(url || '')) await shell.openExternal(url)
   return { ok: true }
@@ -812,6 +823,8 @@ ipcMain.handle('os:update', async (event, payload) => {
   try {
     const url = String(payload?.url || '')
     if (!/^https?:\/\//i.test(url)) throw new Error('Endereço de atualização inválido.')
+    if (process.platform !== 'win32') throw new Error('A atualização automática está disponível apenas no Windows.')
+
 
     let fileName = 'OpenStore-Setup.exe'
     try {
@@ -844,6 +857,7 @@ ipcMain.handle('os:update', async (event, payload) => {
 // ------------------------------------------------------------------- boot
 
 app.whenReady().then(() => {
+  if (isWin) app.setAppUserModelId('com.openstore.app')
   Menu.setApplicationMenu(null)
   createWindow()
   app.on('activate', () => {

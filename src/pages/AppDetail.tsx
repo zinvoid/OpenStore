@@ -221,7 +221,7 @@ export default function AppDetail() {
               src={cover}
               alt=""
               aria-hidden="true"
-              className="absolute inset-0 h-full w-full scale-[1.3] object-cover blur-[26px] saturate-150"
+              className="absolute inset-0 h-full w-full scale-[1.3] object-cover blur-[18px] saturate-125"
             />
           ) : (
             <div
@@ -730,9 +730,9 @@ function DownloadPanel({
           <DownloadIcon className="size-4" />
           {busy
             ? 'Instalando…'
-            : isDesktop
-              ? `Instalar para ${PLATFORMS[os]?.label ?? 'seu sistema'}`
-              : `Baixar para ${PLATFORMS[os]?.label ?? 'seu sistema'}`}
+            : `${isDesktop ? 'Instalar' : 'Baixar'} para ${PLATFORMS[os]?.label ?? 'seu sistema'}${
+                chosen.format ? ` · ${formatLabel(chosen.format)}` : ''
+              }`}
         </button>
       ) : (
         <button

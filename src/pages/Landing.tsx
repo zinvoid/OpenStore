@@ -13,7 +13,8 @@ import {
   UploadIcon,
 } from '../components/Icons'
 import { fetchRepoStats, GITHUB_RELEASES, GITHUB_URL, LICENSE_NAME, type RepoStats } from '../lib/site'
-import { useLatestRelease } from '../lib/releases'
+import { siteDownload, useLatestRelease } from '../lib/releases'
+import { useDetectedOS } from '../lib/platform'
 
 const SECTIONS = [
   { id: 'como-funciona', label: 'Como funciona' },
@@ -28,6 +29,8 @@ function goTo(id: string) {
 export default function Landing() {
   const [repo, setRepo] = useState<RepoStats | null>(null)
   const installer = useLatestRelease()
+  const os = useDetectedOS()
+  const download = siteDownload(installer, os)
 
   useEffect(() => {
     let alive = true
@@ -89,10 +92,10 @@ export default function Landing() {
         {/* ------------------------------------------------------------- hero */}
         <section className="relative overflow-hidden">
           <div
-            className="pointer-events-none absolute inset-0 opacity-80"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(70% 90% at 12% 0%, rgba(124,92,255,0.20) 0%, rgba(124,92,255,0) 60%), radial-gradient(60% 80% at 95% 10%, rgba(91,61,245,0.16) 0%, rgba(91,61,245,0) 62%)',
+                'radial-gradient(65% 80% at 10% 0%, rgba(124,92,255,0.13) 0%, rgba(124,92,255,0) 60%)',
             }}
           />
           <div className="relative mx-auto grid w-full max-w-[1120px] items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_440px]">
@@ -110,28 +113,31 @@ export default function Landing() {
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-2.5">
-                <Link to="/home" className="glass-btn glass-btn-accent px-5 py-2.5 text-[13px] font-semibold">
+                <a
+                  href={download.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="glass-btn glass-btn-accent px-5 py-2.5 text-[13px] font-semibold"
+                >
+                  <DownloadIcon className="size-4" />
+                  {download.label}
+                </a>
+                <Link to="/home" className="glass-btn px-4 py-2.5 text-[13px] font-semibold">
                   Explorar a loja
                   <ChevronRightIcon className="size-3.5" />
                 </Link>
-                <a
-                  href={installer?.url ?? GITHUB_RELEASES}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="glass-btn px-4 py-2.5 text-[13px] font-semibold"
-                >
-                  <DownloadIcon className="size-4" />
-                  Baixar para Windows
-                </a>
+              </div>
+              <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
+                <span>{download.detail}</span>
                 <a
                   href={GITHUB_RELEASES}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-1 py-2.5 text-[12px] font-medium text-muted underline-offset-4 transition hover:text-ink hover:underline"
+                  className="underline-offset-4 transition hover:text-ink hover:underline"
                 >
-                  Linux (.AppImage e .deb)
+                  Todas as versões
                 </a>
-              </div>
+              </p>
 
               <ul className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11.5px] text-muted">
                 <li className="flex items-center gap-1.5">
@@ -249,29 +255,25 @@ export default function Landing() {
 
         {/* -------------------------------------------------------- open source */}
         <section className="mx-auto w-full max-w-[1120px] px-4 pb-14 sm:px-6">
-          <div className="relative overflow-hidden rounded-[16px] border border-line bg-gradient-to-br from-[#2a2350] via-[#241f3d] to-[#161425] p-6 sm:p-8">
-            <div
-              className="pointer-events-none absolute inset-0 opacity-70"
-              style={{
-                background: 'radial-gradient(70% 120% at 90% 0%, rgba(155,130,255,0.35) 0%, rgba(155,130,255,0) 60%)',
-              }}
-            />
-            <div className="relative flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
+          <div className="rounded-[16px] border border-line bg-surface p-6 sm:p-8">
+            <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
               <div className="max-w-[520px]">
-                <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent">Código aberto</p>
-                <h2 className="mt-2 font-display text-[21px] font-semibold text-white sm:text-[24px]">
+                <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent-ink">
+                  Código aberto
+                </p>
+                <h2 className="mt-2 font-display text-[21px] font-semibold sm:text-[24px]">
                   O projeto inteiro está no GitHub
                 </h2>
-                <p className="mt-2 text-[12.5px] leading-relaxed text-white/65">
+                <p className="mt-2 text-[12.5px] leading-relaxed text-muted">
                   Loja, app desktop e banco. Leia o código, abra uma issue ou mande sua melhoria — a loja é da
                   comunidade.
                 </p>
-                <div className="mt-3 flex flex-wrap items-center gap-2 text-[11.5px] text-white/70">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1">
-                    <StarIcon className="size-3 text-amber-300" />
+                <div className="mt-3 flex flex-wrap items-center gap-2 text-[11.5px] text-ink-soft">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1">
+                    <StarIcon className="size-3 text-amber-500" />
                     {repo ? `${repo.stars} estrelas` : 'estrelas no GitHub'}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1">
                     Licença {LICENSE_NAME}
                   </span>
                 </div>
@@ -280,7 +282,7 @@ export default function Landing() {
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-[13px] font-semibold text-[#15121f] transition hover:bg-white/90"
+                className="glass-btn px-4 py-2.5 text-[13px] font-semibold"
               >
                 <GithubIcon className="size-4" />
                 Ver no GitHub

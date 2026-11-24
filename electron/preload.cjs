@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld('openstore', {
   security: () => ipcRenderer.invoke('os:security'),
   scan: (slug) => ipcRenderer.invoke('os:scan', { slug }),
   update: (payload) => ipcRenderer.invoke('os:update', payload),
+  windowControl: (action) => ipcRenderer.invoke('os:window-control', action),
   openExternal: (url) => ipcRenderer.invoke('os:openExternal', url),
   onProgress: (callback) => {
     const handler = (_event, payload) => callback(payload)

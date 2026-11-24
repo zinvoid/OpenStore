@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { LogoutIcon, SearchIcon, UploadIcon } from './Icons'
 import { GhostMark } from './GhostLogo'
+import { WindowControls } from './WindowControls'
 import { signOut, useAccount } from '../lib/auth'
+import { desktop, isDesktop } from '../lib/desktop'
 
 export function TopBar() {
   const navigate = useNavigate()
@@ -11,6 +13,7 @@ export function TopBar() {
   const [query, setQuery] = useState(params.get('q') ?? '')
   const inputRef = useRef<HTMLInputElement>(null)
   const account = useAccount()
+  const frameless = isDesktop && desktop?.platform === 'win32'
 
   useEffect(() => {
     setQuery(params.get('q') ?? '')
@@ -34,7 +37,14 @@ export function TopBar() {
   }
 
   return (
-    <header className="relative z-20 flex h-[56px] shrink-0 items-center gap-3 border-b border-line bg-surface/80 px-3 backdrop-blur-xl sm:px-5">
+    <header
+      className="app-drag relative z-20 flex h-[56px] shrink-0 items-center gap-3 border-b border-line bg-surface/80 px-3 backdrop-blur-xl sm:px-5"
+      onDoubleClick={(event) => {
+        if (!frameless) return
+        if ((event.target as HTMLElement).closest('a, button, input, select, form')) return
+        void desktop?.windowControl('maximize')
+      }}
+    >
       <Link to="/home" className="flex items-center gap-2 md:hidden">
         <GhostMark className="size-7" />
       </Link>
@@ -101,6 +111,7 @@ export function TopBar() {
           </Link>
         )}
       </div>
+      <WindowControls />
       {location.pathname === '/publish' && (
         <span className="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       )}

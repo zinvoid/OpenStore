@@ -148,21 +148,23 @@ export default function Home() {
 
       <DesktopPromo />
 
-      <section className="overflow-hidden rounded-[14px] border border-line bg-gradient-to-br from-[#2a2350] via-[#241f3d] to-[#161425] p-6 sm:p-8">
+      <section className="rounded-[14px] border border-line bg-surface p-6 sm:p-8">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div className="max-w-[560px]">
-            <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent">Para desenvolvedores</p>
-            <h2 className="mt-2 font-display text-[20px] font-semibold text-white sm:text-[23px]">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent-ink">
+              Para desenvolvedores
+            </p>
+            <h2 className="mt-2 font-display text-[20px] font-semibold sm:text-[23px]">
               Publique seu app e apareça para todo mundo
             </h2>
-            <p className="mt-2 text-[12.5px] leading-relaxed text-white/65">
+            <p className="mt-2 text-[12.5px] leading-relaxed text-muted">
               Suba executáveis para Windows, Linux, macOS e Android. O OpenStore detecta o sistema de quem visita
               e entrega o download certo automaticamente.
             </p>
           </div>
           <Link
             to="/publish"
-            className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2.5 text-[13px] font-semibold text-[#15121f] transition hover:bg-white/90"
+            className="glass-btn glass-btn-accent px-4 py-2.5 text-[13px] font-semibold"
           >
             <UploadIcon className="size-4" />
             Publicar meu app
