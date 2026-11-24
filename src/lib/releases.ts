@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { supabase } from './supabase'
 import { desktop } from './desktop'
 
@@ -53,6 +54,27 @@ export async function latestRelease(): Promise<Release | null> {
   const releases = await fetchReleases()
   if (!releases.length) return null
   return releases.reduce((best, release) => (compareVersions(release.version, best.version) > 0 ? release : best))
+}
+
+/** Última versão publicada, para os botões de download do site. */
+export function useLatestRelease(): Release | null {
+  const [release, setRelease] = useState<Release | null>(null)
+
+  useEffect(() => {
+    let alive = true
+    latestRelease()
+      .then((value) => {
+        if (alive) setRelease(value)
+      })
+      .catch(() => {
+        /* sem releases publicadas ainda */
+      })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  return release
 }
 
 /** Retorna a release mais nova, se for mais recente que a versão em execução. */

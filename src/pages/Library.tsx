@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { getApp, listMyApps, readLibrary, type InstalledEntry } from '../lib/api'
+import { deleteApp, getApp, listMyApps, readLibrary, type InstalledEntry } from '../lib/api'
 import type { AppWithDownloads, Download } from '../lib/types'
 import {
   desktop,
@@ -61,6 +61,8 @@ function OwnedApps() {
   const account = useAccount()
   const [apps, setApps] = useState<AppWithDownloads[]>([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [removing, setRemoving] = useState<string | null>(null)
 
   useEffect(() => {
     if (!account) {
@@ -77,6 +79,23 @@ function OwnedApps() {
       alive = false
     }
   }, [account])
+
+  async function remove(app: AppWithDownloads) {
+    const confirmed = window.confirm(
+      `Excluir ${app.name} da loja? O app e seus downloads saem do catálogo, e isso não pode ser desfeito.`,
+    )
+    if (!confirmed) return
+    setError(null)
+    setRemoving(app.slug)
+    try {
+      await deleteApp(app.slug)
+      setApps((list) => list.filter((item) => item.slug !== app.slug))
+    } catch (err) {
+      setError((err as Error).message)
+    } finally {
+      setRemoving(null)
+    }
+  }
 
   if (!account) return null
 
@@ -96,6 +115,12 @@ function OwnedApps() {
           Publicar novo app
         </Link>
       </div>
+
+      {error && (
+        <div className="mt-3 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[11.5px] text-rose-500">
+          {error}
+        </div>
+      )}
 
       {loading ? (
         <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -173,6 +198,12 @@ function OwnedApps() {
                     items={[
                       { label: 'Ver página do app', to: `/app/${app.slug}` },
                       { label: 'Gerenciar downloads', to: `/publish/${app.slug}` },
+                      {
+                        label: removing === app.slug ? 'Excluindo…' : 'Excluir app',
+                        icon: <TrashIcon className="size-3.5" />,
+                        danger: true,
+                        onClick: () => void remove(app),
+                      },
                       {
                         label: 'Copiar link do app',
                         onClick: () => void navigator.clipboard?.writeText(`${window.location.origin}/#/app/${app.slug}`),

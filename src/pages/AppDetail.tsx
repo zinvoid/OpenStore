@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   addReview,
   addToLibrary,
   bestDownload,
+  deleteApp,
   getApp,
   getReviews,
   listApps,
@@ -21,13 +22,16 @@ import {
   CheckIcon,
   ChevronDownIcon,
   DownloadIcon,
+  EditIcon,
   GlobeIcon,
   PlayIcon,
   ShieldIcon,
   StarIcon,
+  TrashIcon,
   VerifiedIcon,
 } from '../components/Icons'
 import { scanMeta, shortHash } from '../lib/security'
+import { useAccount } from '../lib/auth'
 
 type Tab = 'overview' | 'requirements' | 'reviews' | 'related'
 
@@ -55,6 +59,10 @@ export default function AppDetail() {
   const [busyId, setBusyId] = useState<string | null>(null)
   const [progress, setProgress] = useState<ProgressEvent | null>(null)
   const [installError, setInstallError] = useState<string | null>(null)
+  const [removing, setRemoving] = useState(false)
+  const [removeError, setRemoveError] = useState<string | null>(null)
+  const account = useAccount()
+  const navigate = useNavigate()
 
   useEffect(() => {
     let alive = true
@@ -167,6 +175,23 @@ export default function AppDetail() {
     if (fresh) setApp(fresh)
   }
 
+  async function removeApp() {
+    if (!app) return
+    const confirmed = window.confirm(
+      `Excluir ${app.name} da loja? O app e seus downloads saem do catálogo, e isso não pode ser desfeito.`,
+    )
+    if (!confirmed) return
+    setRemoveError(null)
+    setRemoving(true)
+    try {
+      await deleteApp(app.slug)
+      navigate('/library')
+    } catch (err) {
+      setRemoveError((err as Error).message)
+      setRemoving(false)
+    }
+  }
+
   if (loading) return <DetailSkeleton />
   if (notFound || !app) {
     return (
@@ -181,6 +206,7 @@ export default function AppDetail() {
   }
 
   const chosen = bestDownload(app, os)
+  const isOwner = Boolean(account?.id && app.owner_id && account.id === app.owner_id)
   const cover = assetUrl(app.cover_url)
   const screenshots = (app.screenshots ?? []).map((s) => assetUrl(s)!).filter(Boolean)
   const gallery = screenshots.length ? screenshots : cover ? [cover] : []
@@ -248,6 +274,25 @@ export default function AppDetail() {
                   <span className="hidden h-3 w-px bg-line-strong sm:block" />
                   <span>{app.age_rating}</span>
                 </div>
+                {isOwner && (
+                  <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                    <Link
+                      to={`/publish/${app.slug}`}
+                      className="glass-btn glass-btn-quiet px-2.5 py-1 text-[11px] font-medium"
+                    >
+                      <EditIcon className="size-3.5" /> Editar
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => void removeApp()}
+                      disabled={removing}
+                      className="glass-btn glass-btn-quiet px-2.5 py-1 text-[11px] font-medium text-rose-500 disabled:opacity-50"
+                    >
+                      <TrashIcon className="size-3.5" /> {removing ? 'Excluindo…' : 'Excluir'}
+                    </button>
+                    {removeError && <span className="text-[11px] text-rose-500">{removeError}</span>}
+                  </div>
+                )}
               </div>
             </div>
 

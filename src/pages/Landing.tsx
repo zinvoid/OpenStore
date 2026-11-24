@@ -13,6 +13,7 @@ import {
   UploadIcon,
 } from '../components/Icons'
 import { fetchRepoStats, GITHUB_RELEASES, GITHUB_URL, LICENSE_NAME, type RepoStats } from '../lib/site'
+import { useLatestRelease } from '../lib/releases'
 
 const SECTIONS = [
   { id: 'como-funciona', label: 'Como funciona' },
@@ -26,6 +27,7 @@ function goTo(id: string) {
 
 export default function Landing() {
   const [repo, setRepo] = useState<RepoStats | null>(null)
+  const installer = useLatestRelease()
 
   useEffect(() => {
     let alive = true
@@ -113,13 +115,21 @@ export default function Landing() {
                   <ChevronRightIcon className="size-3.5" />
                 </Link>
                 <a
-                  href={GITHUB_RELEASES}
+                  href={installer?.url ?? GITHUB_RELEASES}
                   target="_blank"
                   rel="noreferrer"
                   className="glass-btn px-4 py-2.5 text-[13px] font-semibold"
                 >
                   <DownloadIcon className="size-4" />
                   Baixar para Windows
+                </a>
+                <a
+                  href={GITHUB_RELEASES}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-1 py-2.5 text-[12px] font-medium text-muted underline-offset-4 transition hover:text-ink hover:underline"
+                >
+                  Linux (.AppImage e .deb)
                 </a>
               </div>
 

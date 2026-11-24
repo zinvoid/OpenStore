@@ -77,6 +77,27 @@
     },
     "portable": {
       "artifactName": "OpenStore-${version}-portable.exe"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png",
+      "category": "Utility",
+      "synopsis": "Loja aberta de aplicativos",
+      "maintainer": "OpenStore",
+      "artifactName": "OpenStore-${version}-${arch}.${ext}"
     }
   }
 }

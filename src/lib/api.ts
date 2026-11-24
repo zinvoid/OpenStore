@@ -233,6 +233,16 @@ export async function updateApp(slug: string, input: PublishInput): Promise<stri
   return (data as { slug: string }).slug
 }
 
+/** Apaga um app do próprio autor. O banco confere a sessão e a posse antes de remover. */
+export async function deleteApp(slug: string): Promise<void> {
+  const account = readSession()
+  if (!account) throw new Error('Entre na sua conta para excluir este app.')
+  if (!account.token) throw new Error('Sua sessão é antiga. Saia e entre novamente para excluir.')
+
+  const { error } = await supabase.rpc('openstore_delete_app', { p_token: account.token, p_slug: slug })
+  if (error) throw new Error(saveError(error.message))
+}
+
 /** Apps publicados pela conta atual, para a área “Meus apps”. */
 export async function listMyApps(ownerId: string): Promise<AppWithDownloads[]> {
   const { data, error } = await supabase
