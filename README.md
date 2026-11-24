@@ -11,6 +11,8 @@ O projeto tem duas partes no mesmo repositório:
 
 Backend: Supabase (Postgres, Storage e funções SQL).
 
+**No ar:** https://openstore-ashen.vercel.app — cada push na `main` publica uma nova versão do site.
+
 ## Rodando localmente
 
 ```bash
