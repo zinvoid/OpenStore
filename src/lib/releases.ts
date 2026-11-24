@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './supabase'
 import { desktop } from './desktop'
-import { GITHUB_RELEASES } from './site'
+import { GITHUB_RELEASES, GITHUB_REPO } from './site'
 import type { OSKey } from './platform'
 
 declare const __APP_VERSION__: string
@@ -82,11 +82,38 @@ export function useLatestRelease(): Release | null {
 /** Retorna a release mais nova, se for mais recente que a versão em execução. */
 export async function findUpdate(): Promise<{ release: Release; current: string } | null> {
   const current = await currentVersion()
-  const releases = await fetchReleases()
-  if (!releases.length) return null
-  const newest = releases.reduce((best, release) => (compareVersions(release.version, best.version) > 0 ? release : best))
-  if (compareVersions(newest.version, current) <= 0) return null
+  const releases = await fetchReleases().catch(() => [])
+  const fromChannel = releases.length
+    ? releases.reduce((best, release) => (compareVersions(release.version, best.version) > 0 ? release : best))
+    : null
+
+  // O GitHub é a fonte da verdade: se o canal do banco estiver atrasado, ele decide.
+  const github = await fetchGithubRelease()
+  const githubUpdate = github ? githubAssetRelease(github) : null
+  const newest =
+    githubUpdate && (!fromChannel || compareVersions(githubUpdate.version, fromChannel.version) > 0)
+      ? githubUpdate
+      : fromChannel
+
+  if (!newest || compareVersions(newest.version, current) <= 0) return null
   return { release: newest, current }
+}
+
+function githubAssetRelease(github: GithubRelease): Release {
+  const platform = desktop?.platform
+  const patterns =
+    platform === 'linux'
+      ? [/x86_64\.AppImage$/i, /\.AppImage$/i]
+      : platform === 'darwin'
+        ? [/\.dmg$/i]
+        : [/Setup[.\s_-].*\.exe$/i, /portable\.exe$/i]
+  const asset = patterns.map((pattern) => github.assets.find((item) => pattern.test(item.name))).find(Boolean)
+  return {
+    version: github.version,
+    notes: null,
+    url: asset?.url ?? github.page,
+    published_at: new Date().toISOString(),
+  }
 }
 
 export function openRelease(release: Release | null) {
@@ -96,6 +123,51 @@ export function openRelease(release: Release | null) {
   return true
 }
 
+/** Última release publicada no GitHub, com os arquivos de cada sistema. */
+export interface GithubRelease {
+  version: string
+  page: string
+  assets: { name: string; url: string }[]
+}
+
+export async function fetchGithubRelease(): Promise<GithubRelease | null> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`, {
+      headers: { Accept: 'application/vnd.github+json' },
+    })
+    if (!res.ok) return null
+    const data = (await res.json()) as {
+      tag_name?: string
+      html_url?: string
+      assets?: { name: string; browser_download_url: string }[]
+    }
+    if (!data.tag_name) return null
+    return {
+      version: data.tag_name.replace(/^v/i, ''),
+      page: data.html_url ?? GITHUB_RELEASES,
+      assets: (data.assets ?? []).map((asset) => ({ name: asset.name, url: asset.browser_download_url })),
+    }
+  } catch {
+    return null
+  }
+}
+
+export function useGithubRelease(): GithubRelease | null {
+  const [release, setRelease] = useState<GithubRelease | null>(null)
+
+  useEffect(() => {
+    let alive = true
+    fetchGithubRelease().then((value) => {
+      if (alive && value) setRelease(value)
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  return release
+}
+
 /** Para onde o botão de download do site leva, de acordo com o sistema do visitante. */
 export interface DownloadTarget {
   label: string
@@ -103,33 +175,46 @@ export interface DownloadTarget {
   detail: string
 }
 
-export function siteDownload(release: Release | null, os: OSKey): DownloadTarget {
-  const version = release ? `Versão ${release.version} · ` : ''
+function assetFor(github: GithubRelease | null, patterns: RegExp[]): string | null {
+  if (!github) return null
+  for (const pattern of patterns) {
+    const found = github.assets.find((asset) => pattern.test(asset.name))
+    if (found) return found.url
+  }
+  return null
+}
+
+export function siteDownload(release: Release | null, os: OSKey, github: GithubRelease | null = null): DownloadTarget {
+  const versionNumber = github?.version ?? release?.version
+  const version = versionNumber ? `Versão ${versionNumber} · ` : ''
 
   if (os === 'linux') {
-    return {
-      label: 'Baixar para Linux',
-      href: release ? `${GITHUB_RELEASES}/tag/v${release.version.replace(/^v/i, '')}` : GITHUB_RELEASES,
-      detail: `${version}AppImage e .deb no GitHub`,
-    }
+    const href =
+      assetFor(github, [/x86_64\.AppImage$/i, /amd64\.deb$/i, /\.AppImage$/i, /\.deb$/i]) ??
+      (github?.page ?? GITHUB_RELEASES)
+    return { label: 'Baixar para Linux', href, detail: `${version}AppImage ou .deb no GitHub` }
   }
   if (os === 'macos') {
     return {
       label: 'Baixar para macOS',
-      href: GITHUB_RELEASES,
+      href: assetFor(github, [/\.dmg$/i]) ?? github?.page ?? GITHUB_RELEASES,
       detail: 'Build para macOS publicado no GitHub',
     }
   }
   if (os === 'android' || os === 'ios') {
     return {
       label: 'Ver versões no GitHub',
-      href: GITHUB_RELEASES,
+      href: github?.page ?? GITHUB_RELEASES,
       detail: 'Disponível para computador',
     }
   }
   return {
     label: 'Baixar para Windows',
-    href: release?.url ?? GITHUB_RELEASES,
+    href:
+      assetFor(github, [/Setup[.\s_-].*\.exe$/i, /portable\.exe$/i]) ??
+      release?.url ??
+      github?.page ??
+      GITHUB_RELEASES,
     detail: `${version}Windows 10/11 · x64`,
   }
 }

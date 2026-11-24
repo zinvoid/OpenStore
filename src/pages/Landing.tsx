@@ -13,7 +13,7 @@ import {
   UploadIcon,
 } from '../components/Icons'
 import { fetchRepoStats, GITHUB_RELEASES, GITHUB_URL, LICENSE_NAME, type RepoStats } from '../lib/site'
-import { siteDownload, useLatestRelease } from '../lib/releases'
+import { siteDownload, useGithubRelease, useLatestRelease } from '../lib/releases'
 import { useDetectedOS } from '../lib/platform'
 
 const SECTIONS = [
@@ -29,8 +29,9 @@ function goTo(id: string) {
 export default function Landing() {
   const [repo, setRepo] = useState<RepoStats | null>(null)
   const installer = useLatestRelease()
+  const github = useGithubRelease()
   const os = useDetectedOS()
-  const download = siteDownload(installer, os)
+  const download = siteDownload(installer, os, github)
 
   useEffect(() => {
     let alive = true

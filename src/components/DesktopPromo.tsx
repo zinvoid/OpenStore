@@ -1,16 +1,17 @@
 import { isDesktop } from '../lib/desktop'
-import { siteDownload, useLatestRelease } from '../lib/releases'
+import { siteDownload, useGithubRelease, useLatestRelease } from '../lib/releases'
 import { useDetectedOS } from '../lib/platform'
 import { DownloadIcon } from './Icons'
 
 /** Convite para levar a loja para o desktop. Some quando já estamos dentro do app. */
 export function DesktopPromo() {
   const release = useLatestRelease()
+  const github = useGithubRelease()
   const os = useDetectedOS()
 
   if (isDesktop) return null
 
-  const download = siteDownload(release, os)
+  const download = siteDownload(release, os, github)
 
   return (
     <section className="rounded-[14px] border border-line bg-surface p-5 sm:p-7">
