@@ -5,6 +5,7 @@ import {
   CheckIcon,
   ChevronRightIcon,
   DownloadIcon,
+  GithubIcon,
   GlobeIcon,
   ShieldIcon,
   SparkIcon,
@@ -66,12 +67,14 @@ export default function Landing() {
               className="glass-btn glass-btn-quiet px-3 py-1.5 text-[11.5px] font-medium"
               title="Repositório no GitHub"
             >
-              <GlobeIcon className="size-3.5" />
+              <GithubIcon className="size-4" />
               <span className="hidden sm:inline">GitHub</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-black/10 px-1.5 py-0.5 text-[10px] dark:bg-white/10">
-                <StarIcon className="size-2.5 text-amber-400" />
-                {repo ? repo.stars : '—'}
-              </span>
+              {repo && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-black/10 px-1.5 py-0.5 text-[10px] dark:bg-white/10">
+                  <StarIcon className="size-2.5 text-amber-400" />
+                  {repo.stars}
+                </span>
+              )}
             </a>
             <Link to="/home" className="glass-btn glass-btn-accent px-3.5 py-1.5 text-[12px] font-semibold">
               Entrar na loja
@@ -269,7 +272,7 @@ export default function Landing() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-[13px] font-semibold text-[#15121f] transition hover:bg-white/90"
               >
-                <GlobeIcon className="size-4" />
+                <GithubIcon className="size-4" />
                 Ver no GitHub
               </a>
             </div>
@@ -284,7 +287,13 @@ export default function Landing() {
             <span>OpenStore — loja aberta de aplicativos</span>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="hover:text-ink">
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 hover:text-ink"
+            >
+              <GithubIcon className="size-3.5" />
               GitHub
             </a>
             <a href={GITHUB_RELEASES} target="_blank" rel="noreferrer" className="hover:text-ink">

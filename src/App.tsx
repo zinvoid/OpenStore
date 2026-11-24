@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Route, Routes, useLocation, Link } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, Link } from 'react-router-dom'
 import { Sidebar, MobileNav } from './components/Sidebar'
 import { TopBar } from './components/TopBar'
 import Home from './pages/Home'
@@ -10,6 +10,7 @@ import Library from './pages/Library'
 import SignIn from './pages/SignIn'
 import Landing from './pages/Landing'
 import { UpdateDialog } from './components/UpdateDialog'
+import { isDesktop } from './lib/desktop'
 
 export default function App() {
   const location = useLocation()
@@ -20,7 +21,9 @@ export default function App() {
   }, [location.pathname, location.search])
 
   // A landing page é o site público; a loja em si vive em /home.
-  if (location.pathname === '/') return <Landing />
+  // Dentro do app do desktop, a loja abre direto, sem passar pela landing.
+  if (location.pathname === '/' && !isDesktop) return <Landing />
+  if (location.pathname === '/') return <Navigate to="/home" replace />
 
   return (
     <div className="flex h-full w-full overflow-hidden bg-bg text-ink">

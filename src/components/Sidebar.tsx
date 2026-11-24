@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { GhostMark } from './GhostLogo'
 import { BUILD_VERSION } from '../lib/releases'
+import { isDesktop } from '../lib/desktop'
 import { GridIcon, HomeIcon, LibraryIcon, SparkIcon, UploadIcon } from './Icons'
 
 const NAV = [
@@ -31,9 +32,11 @@ export function Sidebar() {
         </NavLink>
       ))}
       <div className="mt-auto flex flex-col items-center gap-2 px-2 text-center text-[9px] leading-tight text-muted/70">
-        <NavLink to="/" title="Site público" className="text-[9px] font-medium text-muted hover:text-ink">
-          site
-        </NavLink>
+        {!isDesktop && (
+          <NavLink to="/" title="Site público" className="text-[9px] font-medium text-muted hover:text-ink">
+            site
+          </NavLink>
+        )}
         beta
         <br />
         {BUILD_VERSION}

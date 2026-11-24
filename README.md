@@ -27,6 +27,17 @@ npm run typecheck
 npm run build
 ```
 
+## Ícones
+
+A marca vive em dois lugares: `build/icon.png` (fonte quadrada com transparência) e `build/icon.ico` (multi-tamanho,
+usado pelo `.exe`, pelo instalador e pelos atalhos). Para regenerar o `.ico` depois de trocar o PNG:
+
+```bash
+node scripts/make-ico.cjs
+```
+
+O site usa `public/icon.png` e a marca vetorial em `src/components/GhostLogo.tsx`.
+
 ## Banco de dados
 
 Os arquivos em `supabase/` são aplicados em ordem no projeto:
