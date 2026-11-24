@@ -22,3 +22,6 @@ build/*.yml
 .cloud-attachments/
 .DS_Store
 Thumbs.db
+
+# cache do Vite
+.vite/
