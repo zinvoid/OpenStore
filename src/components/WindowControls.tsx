@@ -9,12 +9,12 @@ export function WindowControls() {
   }
 
   return (
-    <div className="-mr-3 flex h-[56px] shrink-0 items-stretch sm:-mr-5">
+    <div className="-mr-3 ml-1 flex h-[56px] shrink-0 items-stretch overflow-hidden rounded-r-[20px] sm:-mr-4">
       <button
         type="button"
         onClick={() => send('minimize')}
         aria-label="Minimizar"
-        className="grid w-[46px] place-items-center text-muted transition hover:bg-surface-2 hover:text-ink"
+        className="grid w-[44px] place-items-center text-muted transition hover:bg-white/10 hover:text-ink"
       >
         <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.6">
           <path d="M5 12h14" strokeLinecap="round" />
@@ -24,7 +24,7 @@ export function WindowControls() {
         type="button"
         onClick={() => send('maximize')}
         aria-label="Maximizar ou restaurar"
-        className="grid w-[46px] place-items-center text-muted transition hover:bg-surface-2 hover:text-ink"
+        className="grid w-[44px] place-items-center text-muted transition hover:bg-white/10 hover:text-ink"
       >
         <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.6">
           <rect x="5.5" y="5.5" width="13" height="13" rx="1.5" />
@@ -34,7 +34,7 @@ export function WindowControls() {
         type="button"
         onClick={() => send('close')}
         aria-label="Fechar"
-        className="grid w-[46px] place-items-center text-muted transition hover:bg-[#c42b1c] hover:text-white"
+        className="grid w-[44px] place-items-center text-muted transition hover:bg-[#c42b1c] hover:text-white"
       >
         <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.6">
           <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />

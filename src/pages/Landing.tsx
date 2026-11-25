@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { GhostMark } from '../components/GhostLogo'
+import { GhostBadge, GhostMark } from '../components/GhostLogo'
+import { ThemeToggle } from '../components/ThemeToggle'
 import {
   CheckIcon,
   ChevronRightIcon,
@@ -44,12 +45,13 @@ export default function Landing() {
   }, [])
 
   return (
-    <div className="app-bg scroll-area h-full overflow-y-auto text-ink">
-      <header className="sticky top-0 z-30 border-b border-line bg-surface/55 backdrop-blur-2xl">
-        <div className="mx-auto flex h-[58px] w-full max-w-[1120px] items-center gap-3 px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2">
-            <GhostMark className="size-7" />
-            <span className="font-display text-[15px] font-semibold tracking-tight">OpenStore</span>
+    <div className="app-bg scroll-area relative h-full overflow-y-auto text-ink">
+      <div className="app-grain pointer-events-none fixed inset-0 z-0" aria-hidden="true" />
+      <header className="sticky top-0 z-30 px-3 pt-3 sm:px-5">
+        <div className="glass-float mx-auto flex h-[58px] w-full max-w-[1120px] items-center gap-3 rounded-[20px] px-3 sm:px-5">
+          <Link to="/" className="flex items-center gap-2.5">
+            <GhostMark className="size-9" glow />
+            <span className="font-display text-[16px] font-semibold tracking-[-0.02em]">OpenStore</span>
           </Link>
 
           <nav className="ml-6 hidden items-center gap-1 md:flex">
@@ -75,14 +77,15 @@ export default function Landing() {
             >
               <GithubIcon className="size-4" />
               <span className="hidden sm:inline">GitHub</span>
-              {repo && (
+              {repo && repo.stars > 0 && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-black/10 px-1.5 py-0.5 text-[10px] dark:bg-white/10">
                   <StarIcon className="size-2.5 text-amber-400" />
                   {repo.stars}
                 </span>
               )}
             </a>
-            <Link to="/home" className="glass-btn glass-btn-accent px-3.5 py-1.5 text-[12px] font-semibold">
+                                <ThemeToggle />
+            <Link to="/home" className="glass-btn glass-btn-accent px-3.5 py-2 text-[12px] font-semibold">
               Entrar na loja
             </Link>
           </div>
@@ -101,7 +104,7 @@ export default function Landing() {
           />
           <div className="relative mx-auto grid w-full max-w-[1120px] items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_440px]">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface/70 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent-ink backdrop-blur">
+              <span className="glass-chip !px-2.5 !py-1 !text-[10.5px] !font-semibold !uppercase !tracking-[0.14em] !text-accent-ink">
                 <SparkIcon className="size-3" />
                 Loja aberta de aplicativos
               </span>
@@ -177,7 +180,7 @@ export default function Landing() {
                 text: 'Quando sai versão nova, o site mostra na hora e o app avisa para atualizar sem você procurar.',
               },
             ].map((step, index) => (
-              <article key={step.title} className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+              <article key={step.title} className="glass-card p-4">
                 <div className="flex items-center gap-2">
                   <span className="grid size-8 place-items-center rounded-lg bg-accent-soft text-accent-ink">
                     {step.icon}
@@ -200,7 +203,7 @@ export default function Landing() {
           title="O arquivo é conferido antes de rodar"
           description="Nenhum executável é aberto sem passar pela checagem. O caminho é o mesmo para todo mundo que publica."
         >
-          <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4 sm:p-6">
+          <div className="glass-panel p-4 sm:p-6">
             <div className="mx-auto flex max-w-[680px] flex-col items-stretch gap-2">
               <FlowCard icon={<UploadIcon className="size-4" />} title="Upload de aplicativo" text="Arquivo enviado pelo desenvolvedor" />
               <FlowArrow />
@@ -246,7 +249,7 @@ export default function Landing() {
               { title: 'Edição a qualquer hora', text: 'Quem publicou edita textos, arte, versão e arquivos quando quiser.' },
               { title: 'Atualização da loja', text: 'Aviso de versão nova aparece no site e dentro do app.' },
             ].map((feature) => (
-              <article key={feature.title} className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+              <article key={feature.title} className="glass-card p-4">
                 <h3 className="text-[13px] font-semibold">{feature.title}</h3>
                 <p className="mt-1 text-[11.5px] leading-relaxed text-muted">{feature.text}</p>
               </article>
@@ -256,7 +259,7 @@ export default function Landing() {
 
         {/* -------------------------------------------------------- open source */}
         <section className="mx-auto w-full max-w-[1120px] px-4 pb-14 sm:px-6">
-          <div className="rounded-[16px] border border-line bg-surface p-6 sm:p-8">
+          <div className="glass-panel p-6 sm:p-8">
             <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
               <div className="max-w-[520px]">
                 <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent-ink">
@@ -359,7 +362,7 @@ function FlowCard({
   tone?: 'neutral' | 'emerald' | 'sky'
 }) {
   const tones = {
-    neutral: 'border-line bg-surface-2 text-ink',
+    neutral: 'border-line bg-white/20 text-ink dark:bg-white/[0.04]',
     emerald: 'border-emerald-500/25 bg-emerald-500/[0.06] text-ink',
     sky: 'border-sky-500/25 bg-sky-500/[0.06] text-ink',
   }
@@ -392,21 +395,21 @@ function FlowArrow() {
 /** Mock da loja montado em CSS — sem imagem, sem depender de app publicado. */
 function StoreMock() {
   const apps = [
-    { name: 'Ferramentas', publisher: 'comunidade', accent: '#7c5cff', glyph: 'A' },
-    { name: 'Utilitários', publisher: 'comunidade', accent: '#0ea5e9', glyph: 'B' },
-    { name: 'Segurança', publisher: 'comunidade', accent: '#10b981', glyph: 'C' },
+    { name: 'Ferramentas', publisher: 'comunidade', accent: '#6b57f5', glyph: 'A' },
+    { name: 'Utilitários', publisher: 'comunidade', accent: '#4f7cf5', glyph: 'B' },
+    { name: 'Segurança', publisher: 'comunidade', accent: '#8a63d2', glyph: 'C' },
   ]
   return (
     <div className="relative">
-      <div className="overflow-hidden rounded-[16px] border border-line bg-surface shadow-[0_40px_80px_-50px_rgba(0,0,0,0.6)]">
-        <div className="flex h-9 items-center gap-1.5 border-b border-line bg-surface-2 px-3">
+      <div className="glass-panel overflow-hidden rounded-[20px]">
+        <div className="flex h-9 items-center gap-1.5 border-b border-line bg-white/20 px-3 dark:bg-white/[0.03]">
           <span className="size-2 rounded-full bg-red-400/70" />
           <span className="size-2 rounded-full bg-amber-400/70" />
           <span className="size-2 rounded-full bg-emerald-400/70" />
           <span className="ml-2 truncate text-[10px] text-muted">openstore</span>
         </div>
         <div className="flex">
-          <div className="hidden w-[52px] shrink-0 flex-col items-center gap-3 border-r border-line bg-surface-2 py-3 sm:flex">
+          <div className="hidden w-[52px] shrink-0 flex-col items-center gap-3 border-r border-line bg-white/15 py-3 dark:bg-white/[0.02] sm:flex">
             <GhostMark className="size-6" />
             {['#7c5cff', '#9c9cab', '#9c9cab'].map((color, index) => (
               <span
@@ -417,7 +420,7 @@ function StoreMock() {
             ))}
           </div>
           <div className="min-w-0 flex-1 p-3">
-            <div className="flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-[10.5px] text-muted">
+            <div className="flex items-center gap-2 rounded-full border border-line bg-white/30 px-3 py-1.5 text-[10.5px] text-muted dark:bg-white/[0.05]">
               <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="6.5" />
                 <path d="m16 16 4 4" strokeLinecap="round" />
@@ -436,10 +439,10 @@ function StoreMock() {
             </div>
             <div className="mt-2.5 grid grid-cols-3 gap-2">
               {apps.map((app) => (
-                <div key={app.name} className="rounded-lg border border-line bg-surface-2 p-1.5">
+                <div key={app.name} className="rounded-xl border border-line bg-white/30 p-1.5 dark:bg-white/[0.05]">
                   <div
                     className="grid aspect-square w-full place-items-center rounded-md text-[13px] font-semibold text-white"
-                    style={{ background: `linear-gradient(145deg, ${app.accent}, ${app.accent}aa)` }}
+                    style={{ background: `linear-gradient(150deg, ${app.accent}, ${app.accent}bb)` }}
                   >
                     {app.glyph}
                   </div>
@@ -451,7 +454,7 @@ function StoreMock() {
           </div>
         </div>
       </div>
-      <div className="absolute -bottom-3 -right-2 hidden items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1 text-[10px] font-medium text-ink shadow-sm sm:flex">
+      <div className="glass-chip absolute -bottom-3 -right-2 hidden !px-2.5 !py-1 !text-[10px] !font-medium !text-ink sm:flex">
         <ShieldIcon className="size-3 text-emerald-500" /> verificado no envio
       </div>
     </div>

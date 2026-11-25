@@ -26,21 +26,27 @@ export default function App() {
   if (location.pathname === '/') return <Navigate to="/home" replace />
 
   return (
-    <div className="app-bg flex h-full w-full overflow-hidden text-ink">
+    <div className="app-bg relative flex h-full w-full overflow-hidden text-ink">
+      <div className="app-grain pointer-events-none absolute inset-0 z-0" aria-hidden="true" />
       <Sidebar />
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col">
         <TopBar />
-        <main ref={mainRef} className="scroll-area flex-1 overflow-y-auto overflow-x-hidden pb-16 md:pb-0">
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/apps" element={<Browse />} />
-            <Route path="/app/:slug" element={<AppDetail />} />
-            <Route path="/publish" element={<Publish />} />
-            <Route path="/publish/:slug" element={<Publish />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <main
+          ref={mainRef}
+          className="scroll-area flex-1 overflow-y-auto overflow-x-hidden pb-24 md:pb-6"
+        >
+          <div key={location.pathname} className="page-enter">
+            <Routes>
+              <Route path="/home" element={<Home />} />
+              <Route path="/apps" element={<Browse />} />
+              <Route path="/app/:slug" element={<AppDetail />} />
+              <Route path="/publish" element={<Publish />} />
+              <Route path="/publish/:slug" element={<Publish />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/library" element={<Library />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </main>
       </div>
       <MobileNav />

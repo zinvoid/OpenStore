@@ -198,7 +198,7 @@ export default function AppDetail() {
       <div className="mx-auto max-w-md px-6 py-24 text-center">
         <h1 className="font-display text-xl font-semibold">App não encontrado</h1>
         <p className="mt-2 text-[13px] text-muted">Talvez ele tenha sido removido ou o link esteja incorreto.</p>
-        <Link to="/apps" className="mt-6 inline-flex rounded-md bg-accent px-4 py-2 text-[13px] font-semibold text-white">
+        <Link to="/apps" className="glass-btn glass-btn-accent mt-6 inline-flex px-4 py-2 text-[13px] font-semibold">
           Explorar a loja
         </Link>
       </div>
@@ -247,7 +247,7 @@ export default function AppDetail() {
         <div className="relative z-10 mx-auto w-full max-w-[1220px] px-4 sm:px-6 lg:px-8">
           <div className="-mt-[86px] flex flex-col gap-5 sm:-mt-[96px] lg:flex-row lg:items-end lg:justify-between">
             <div className="flex items-end gap-4">
-              <AppTile app={app} size={104} radius={22} glow className="ring-1 ring-black/10" />
+              <AppTile app={app} size={108} radius={24} glow className="ring-1 ring-white/25" />
               <div className="min-w-0 pb-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="font-display text-[24px] font-semibold leading-tight tracking-[-0.02em] sm:text-[30px]">
@@ -314,7 +314,7 @@ export default function AppDetail() {
       </div>
 
       {/* abas */}
-      <div className="sticky top-0 z-10 mt-6 border-b border-line bg-bg/85 backdrop-blur-xl">
+      <div className="sticky top-0 z-10 mt-6 border-b border-line bg-white/20 backdrop-blur-xl dark:bg-white/[0.03]">
         <div className="mx-auto flex w-full max-w-[1220px] items-center gap-1 overflow-x-auto px-4 no-scrollbar sm:px-6 lg:px-8">
           {TABS.map((t) => (
             <button
@@ -347,7 +347,7 @@ export default function AppDetail() {
                         key={`${src}-${i}`}
                         type="button"
                         onClick={() => setLightbox(src)}
-                        className="group relative w-[300px] shrink-0 snap-start overflow-hidden rounded-lg border border-line bg-surface sm:w-[400px]"
+                        className="group relative w-[300px] shrink-0 snap-start overflow-hidden rounded-2xl border border-line bg-surface-2/40 sm:w-[400px]"
                       >
                         <img
                           src={src}
@@ -377,7 +377,7 @@ export default function AppDetail() {
                       <Link
                         key={tag}
                         to={`/apps?q=${encodeURIComponent(tag)}`}
-                        className="rounded-full border border-line bg-surface px-2.5 py-1 text-[11px] text-muted transition hover:border-line-strong hover:text-ink"
+                        className="glass-chip !px-2.5 !py-1 !text-[11px] !text-muted transition hover:!text-ink"
                       >
                         {tag}
                       </Link>
@@ -387,7 +387,7 @@ export default function AppDetail() {
               </section>
 
               {app.whats_new && (
-                <section className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+                <section className="glass-card p-4">
                   <div className="flex items-center gap-2">
                     <span className="rounded bg-accent-soft px-1.5 py-0.5 text-[10px] font-semibold text-accent-ink">
                       NOVIDADES
@@ -404,13 +404,11 @@ export default function AppDetail() {
                   O OpenStore escolheu automaticamente a versão para {osLabel(detected)}. Você pode baixar qualquer
                   outra.
                 </p>
-                <div className="mt-3 overflow-hidden rounded-[var(--radius-card)] border border-line">
-                  {(app.app_downloads ?? []).map((d, i) => (
+                <div className="glass-card mt-3 overflow-hidden p-1">
+                  {(app.app_downloads ?? []).map((d) => (
                     <div
                       key={d.id}
-                      className={`flex flex-wrap items-center gap-3 px-3.5 py-2.5 ${
-                        i % 2 ? 'bg-surface' : 'bg-surface-2'
-                      }`}
+                      className="flex flex-wrap items-center gap-3 rounded-xl px-3 py-2.5 transition hover:bg-white/10 dark:hover:bg-white/[0.04]"
                     >
                       <OsIcon platform={d.platform} className="size-4 text-ink-soft" />
                       <div className="min-w-0 flex-1">
@@ -437,7 +435,7 @@ export default function AppDetail() {
                       <button
                         type="button"
                         onClick={() => void handleInstall(d)}
-                        className="rounded-md border border-line-strong px-2.5 py-1.5 text-[11.5px] font-medium text-ink transition hover:border-accent hover:text-accent-ink"
+                        className="glass-btn px-3 py-1.5 text-[11.5px] font-medium"
                       >
                         {isDesktop ? 'Instalar' : 'Baixar'}
                       </button>
@@ -451,7 +449,7 @@ export default function AppDetail() {
             </div>
 
             <aside className="space-y-3">
-              <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+              <div className="glass-card p-4">
                 <h3 className="text-[12.5px] font-semibold text-ink">Informações adicionais</h3>
                 <dl className="mt-3 space-y-2.5 text-[11.5px]">
                   <InfoRow label="Editor" value={app.publisher} />
@@ -490,7 +488,7 @@ export default function AppDetail() {
                 </div>
               </div>
 
-              <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+              <div className="glass-card p-4">
                 <div className="flex items-center gap-1.5">
                   <ShieldIcon className="size-3.5 text-accent-ink" />
                   <h3 className="text-[12.5px] font-semibold">Segurança do arquivo</h3>
@@ -523,7 +521,7 @@ export default function AppDetail() {
                 )}
               </div>
 
-              <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+              <div className="glass-card p-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-[12.5px] font-semibold">Avaliação geral</h3>
                   <span className="text-[11px] text-muted">{ratingLabel(Number(app.rating))}</span>
@@ -547,7 +545,7 @@ export default function AppDetail() {
               </div>
 
               {related.length > 0 && (
-                <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+                <div className="glass-card p-4">
                   <h3 className="text-[12.5px] font-semibold">Apps semelhantes</h3>
                   <div className="mt-3 space-y-2.5">
                     {related.slice(0, 4).map((r) => (
@@ -569,9 +567,9 @@ export default function AppDetail() {
         {tab === 'requirements' && (
           <div className="max-w-3xl space-y-4">
             <h2 className="font-display text-[16px] font-semibold">Requisitos do sistema</h2>
-            <div className="overflow-x-auto rounded-[var(--radius-card)] border border-line">
+            <div className="glass-card overflow-x-auto">
               <table className="w-full text-left text-[12px]">
-                <thead className="bg-surface-2 text-[11px] uppercase tracking-wide text-muted">
+                <thead className="bg-white/10 text-[11px] uppercase tracking-[0.08em] text-muted dark:bg-white/[0.04]">
                   <tr>
                     <th className="px-3.5 py-2.5 font-medium">Plataforma</th>
                     <th className="px-3.5 py-2.5 font-medium">Arquitetura</th>
@@ -582,7 +580,7 @@ export default function AppDetail() {
                 </thead>
                 <tbody>
                   {(app.app_downloads ?? []).map((d) => (
-                    <tr key={d.id} className="border-t border-line bg-surface">
+                    <tr key={d.id} className="border-t border-line transition hover:bg-white/10 dark:hover:bg-white/[0.03]">
                       <td className="px-3.5 py-2.5">
                         <span className="flex items-center gap-2">
                           <OsIcon platform={d.platform} className="size-3.5" />
@@ -612,13 +610,13 @@ export default function AppDetail() {
                 Avaliações <span className="text-muted">({reviews.length})</span>
               </h2>
               {reviews.length === 0 && (
-                <p className="rounded-[var(--radius-card)] border border-dashed border-line-strong bg-surface/60 p-6 text-center text-[12.5px] text-muted">
+                <p className="rounded-[var(--radius-card)] border border-dashed border-line-strong bg-white/10 p-6 dark:bg-white/[0.03] text-center text-[12.5px] text-muted">
                   Ninguém avaliou ainda. Seja o primeiro a contar como foi.
                 </p>
               )}
               <div className="space-y-2.5">
                 {reviews.map((r) => (
-                  <div key={r.id} className="rounded-[var(--radius-card)] border border-line bg-surface p-3.5">
+                  <div key={r.id} className="glass-card p-3.5">
                     <div className="flex items-center gap-2.5">
                       <span className="flex size-7 items-center justify-center rounded-full bg-accent-soft text-[11px] font-semibold text-accent-ink">
                         {r.author.slice(0, 1).toUpperCase()}
@@ -709,7 +707,7 @@ function DownloadPanel({
   const canReveal = Boolean(installed?.exePath || installed?.installDir)
 
   return (
-    <div className="w-full rounded-xl border border-line bg-surface p-3.5 shadow-[0_18px_40px_-30px_rgba(0,0,0,0.6)] lg:w-[338px]">
+    <div className="glass-card w-full p-3.5 lg:w-[338px]">
       {canReveal ? (
         <button
           type="button"
@@ -738,7 +736,7 @@ function DownloadPanel({
         <button
           type="button"
           disabled
-          className="w-full cursor-not-allowed rounded-md border border-line-strong bg-surface-2 px-4 py-2.5 text-[13px] font-semibold text-muted"
+          className="w-full cursor-not-allowed rounded-xl border border-line-strong bg-white/10 px-4 py-2.5 text-[13px] font-semibold text-muted dark:bg-white/[0.04]"
         >
           Indisponível para {PLATFORMS[os]?.label ?? 'este sistema'}
         </button>
@@ -762,7 +760,7 @@ function DownloadPanel({
       )}
       {error && <p className="mt-1.5 text-center text-[11px] text-red-500">{error}</p>}
 
-      <div className="mt-3 flex items-center gap-2 rounded-md bg-surface-2 px-2 py-1.5">
+      <div className="glass-inset mt-3 flex items-center gap-2 px-2 py-1.5">
         <OsIcon platform={detected} className="size-3.5 text-muted" />
         <span className="text-[10.5px] text-muted">
           Detectado: <span className="font-medium text-ink">{osLabel(detected)}</span>
@@ -771,7 +769,7 @@ function DownloadPanel({
           aria-label="Simular outro sistema"
           value={os}
           onChange={(e) => setOs(e.target.value as OSKey)}
-          className="ml-auto rounded border border-line bg-surface px-1.5 py-0.5 text-[10.5px] text-ink outline-none"
+          className="ml-auto rounded-lg border border-line bg-white/40 px-1.5 py-0.5 text-[10.5px] text-ink outline-none dark:bg-white/[0.06]"
         >
           {OS_OPTIONS.map((p) => (
             <option key={p} value={p}>
@@ -860,7 +858,7 @@ function ReviewForm({
 
   return (
     <aside className="space-y-3">
-      <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+      <div className="glass-card p-4">
         <div className="flex items-baseline gap-2">
           <span className="font-display text-[34px] font-semibold leading-none">{rating.toFixed(1)}</span>
           <span className="text-[11.5px] text-muted">de 5</span>
@@ -886,7 +884,7 @@ function ReviewForm({
         </div>
       </div>
 
-      <form onSubmit={submit} className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+      <form onSubmit={submit} className="glass-card p-4">
         <p className="text-[12.5px] font-semibold">Avaliar este app</p>
         <div className="mt-2 flex items-center gap-1">
           {[1, 2, 3, 4, 5].map((n) => (

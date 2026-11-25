@@ -128,7 +128,7 @@ function OwnedApps() {
           ))}
         </div>
       ) : apps.length === 0 ? (
-        <div className="mt-3 rounded-2xl border border-dashed border-line-strong bg-surface/50 px-4 py-6 text-center text-[12px] text-muted backdrop-blur">
+        <div className="mt-3 rounded-2xl border border-dashed border-line-strong bg-white/10 px-4 py-6 text-center text-[12px] text-muted dark:bg-white/[0.03]">
           Você ainda não publicou nenhum app. Quando publicar, ele aparece aqui com o botão <strong>Editar</strong>.
         </div>
       ) : (
@@ -551,13 +551,13 @@ function InstalledApps() {
                   </button>
 
                   {detected?.slug === item.slug && (
-                    <div className="mt-3 rounded-lg border border-line bg-surface/80 p-2.5 backdrop-blur">
+                    <div className="mt-3 glass-inset p-2.5">
                       <p className="text-[11px] font-semibold">Instalações encontradas neste PC</p>
                       <div className="mt-2 space-y-1.5">
                         {detected.results.map((candidate, index) => (
                           <div
                             key={`${candidate.displayName}-${index}`}
-                            className="flex flex-wrap items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-2"
+                            className="glass-inset flex flex-wrap items-center gap-2 px-2.5 py-2"
                           >
                             <div className="min-w-0 flex-1">
                               <p className="truncate text-[11.5px] font-medium">{candidate.displayName}</p>
@@ -587,7 +587,7 @@ function InstalledApps() {
                   )}
 
                   {versions?.slug === item.slug && (
-                    <div className="mt-3 rounded-lg border border-line bg-surface/80 p-2.5 backdrop-blur">
+                    <div className="mt-3 glass-inset p-2.5">
                       <p className="text-[11px] font-semibold">Baixar outra versão</p>
                       {versions.downloads.length === 0 ? (
                         <p className="mt-1.5 text-[11px] text-muted">
@@ -598,7 +598,7 @@ function InstalledApps() {
                           {versions.downloads.map((download) => (
                             <div
                               key={download.id}
-                              className="flex flex-wrap items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-2"
+                              className="glass-inset flex flex-wrap items-center gap-2 px-2.5 py-2"
                             >
                               <div className="min-w-0 flex-1">
                                 <p className="truncate text-[11.5px] font-medium">
@@ -748,7 +748,7 @@ function DownloadedApps() {
       </div>
 
       {items.length === 0 ? (
-        <div className="mt-3 flex flex-col items-center rounded-2xl border border-dashed border-line-strong bg-surface/60 px-6 py-12 text-center">
+        <div className="mt-3 flex flex-col items-center glass-inset border-dashed px-6 py-12 text-center">
           <span className="grid size-14 place-items-center rounded-2xl bg-accent-soft text-accent-ink">
             <LibraryIcon className="size-7" />
           </span>

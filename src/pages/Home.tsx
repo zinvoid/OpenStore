@@ -9,7 +9,7 @@ import { AppCard } from '../components/AppCard'
 import { AppTile } from '../components/AppTile'
 import { ChevronRightIcon, UploadIcon } from '../components/Icons'
 import { DesktopPromo } from '../components/DesktopPromo'
-import { GhostMark } from '../components/GhostLogo'
+import { GhostBadge } from '../components/GhostLogo'
 import { assetUrl, formatCount, formatPrice } from '../lib/format'
 import { Stars } from '../components/Stars'
 
@@ -41,25 +41,25 @@ export default function Home() {
   if (apps.length === 0) {
     return (
       <div className="mx-auto w-full max-w-[1500px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-        <section className="relative overflow-hidden rounded-[14px] border border-line bg-surface px-6 py-14 text-center">
+        <section className="glass-panel relative overflow-hidden px-6 py-16 text-center">
           <div
-            className="pointer-events-none absolute inset-0 opacity-70"
+            className="pointer-events-none absolute inset-0 opacity-60"
             style={{
-              background: 'radial-gradient(70% 120% at 50% 0%, rgba(124,92,255,0.22) 0%, rgba(124,92,255,0) 65%)',
+              background: 'radial-gradient(70% 120% at 50% 0%, color-mix(in srgb, var(--color-accent) 22%, transparent) 0%, transparent 68%)',
             }}
           />
-          <div className="relative mx-auto flex max-w-[460px] flex-col items-center">
-            <GhostMark className="size-16" glow />
-            <h1 className="mt-4 font-display text-[22px] font-semibold tracking-[-0.02em]">
+          <div className="relative mx-auto flex max-w-[480px] flex-col items-center">
+            <GhostBadge size={92} />
+            <h1 className="title-soft mt-6 font-display text-[26px] font-semibold sm:text-[30px]">
               A vitrine está começando
             </h1>
-            <p className="mt-2 text-[12.5px] leading-relaxed text-muted">
+            <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
               Só aparecem aqui os apps que a comunidade publicar. Nenhum app de exemplo, nenhuma cópia — publique o
               seu e ele entra na loja na hora.
             </p>
             <Link
               to="/publish"
-              className="glass-btn glass-btn-accent mt-5 inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-semibold"
+              className="glass-btn glass-btn-accent mt-7 inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-semibold"
             >
               <UploadIcon className="size-4" /> Publicar o primeiro app
             </Link>
@@ -76,7 +76,7 @@ export default function Home() {
   const reTools = apps.filter((a) => a.category === 'Engenharia Reversa' || a.category === 'Segurança')
 
   return (
-    <div className="mx-auto w-full max-w-[1500px] space-y-9 px-4 py-5 sm:px-6 lg:px-8">
+      <div className="relative mx-auto w-full max-w-[1500px] space-y-10 px-4 py-5 sm:px-6 lg:px-8">
       <Hero apps={featured.length ? featured : apps} />
 
       <Rail title="Essenciais para começar" subtitle="Ferramentas que a comunidade instala primeiro" seeAllTo="/apps">
@@ -130,7 +130,7 @@ export default function Home() {
             <Link
               key={cat.key}
               to={`/apps?cat=${encodeURIComponent(cat.key)}`}
-              className="card-hover group relative overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface p-3.5"
+              className="glass-card group relative overflow-hidden p-4"
             >
               <span
                 className="absolute inset-x-0 top-0 h-[3px]"
@@ -148,7 +148,7 @@ export default function Home() {
 
       <DesktopPromo />
 
-      <section className="rounded-[14px] border border-line bg-surface p-6 sm:p-8">
+      <section className="glass-panel p-6 sm:p-8">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div className="max-w-[560px]">
             <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-accent-ink">
@@ -180,7 +180,7 @@ function RecentCard({ app }: { app: AppWithDownloads }) {
   return (
     <Link
       to={`/app/${app.slug}`}
-      className="card-hover w-[290px] shrink-0 snap-start overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface sm:w-[330px]"
+      className="glass-card w-[290px] shrink-0 snap-start overflow-hidden sm:w-[330px]"
     >
       <div className="relative h-[112px] w-full overflow-hidden" style={{ background: app.accent ?? '#7c5cff' }}>
         {cover ? (

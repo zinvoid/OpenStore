@@ -92,11 +92,10 @@ export function UpdateDialog() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="update-title"
-      className="fixed inset-0 z-[80] grid place-items-center bg-black/45 p-4 backdrop-blur-xl"
+      className="fixed inset-0 z-[80] grid place-items-center bg-black/35 p-4 backdrop-blur-2xl"
     >
       <div
-        className="relative w-full max-w-[470px] overflow-hidden rounded-[18px] border border-white/15 bg-surface/90 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.85)] backdrop-blur-2xl animate-fade-up"
-        style={{ WebkitBackdropFilter: 'blur(28px) saturate(160%)' }}
+        className="glass-float animate-fade-up relative w-full max-w-[470px] overflow-hidden rounded-[24px]"
       >
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-70"
@@ -111,7 +110,7 @@ export function UpdateDialog() {
             <img
               src={`${import.meta.env.BASE_URL}icon.png`}
               alt=""
-              className="size-12 shrink-0 drop-shadow-[0_10px_24px_rgba(124,92,255,0.45)]"
+              className="size-14 shrink-0 drop-shadow-[0_12px_28px_rgba(107,87,245,0.4)]"
             />
             <div className="min-w-0">
               <p className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-accent-ink">
@@ -158,7 +157,7 @@ export function UpdateDialog() {
           )}
 
           {release.notes && stage !== 'done' && (
-            <div className="mt-3 rounded-xl border border-white/10 bg-black/[0.06] p-3 text-[12px] leading-relaxed text-ink-soft backdrop-blur">
+            <div className="glass-inset mt-3 p-3 text-[12px] leading-relaxed text-ink-soft">
               {release.notes}
             </div>
           )}

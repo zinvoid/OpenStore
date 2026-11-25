@@ -4,7 +4,7 @@ import { getApp, publishApp, updateApp, uploadAsset, uploadBinary, type Download
 import { CATEGORIES } from '../lib/types'
 import { PLATFORMS, archLabel, extensionOf, formatLabel, platformFromExtension } from '../lib/platform'
 import { assetUrl, formatBytes, slugify } from '../lib/format'
-import { GhostMark } from '../components/GhostLogo'
+import { GhostBadge, GhostMark } from '../components/GhostLogo'
 import { useAccount } from '../lib/auth'
 import { OsIcon } from '../components/OsIcon'
 import { CheckIcon, ImageIcon, PlusIcon, ShieldIcon, TrashIcon, UploadIcon } from '../components/Icons'
@@ -263,7 +263,7 @@ export default function Publish() {
               : 'Qualquer pessoa pode publicar. Envie o programa em .exe, .msi, .deb, .AppImage, .apk e outros formatos — o OpenStore detecta o sistema do visitante e oferece o download certo.'}
           </p>
         </div>
-        <div className="max-w-[290px] rounded-md border border-line bg-surface-2 px-3 py-2 text-[11px] leading-relaxed text-muted">
+        <div className="glass-inset max-w-[290px] px-3 py-2 text-[11px] leading-relaxed text-muted">
           <ShieldIcon className="mr-1 inline size-3.5 align-[-2px] text-accent-ink" />
           Cada arquivo passa por formato, tamanho e SHA-256. A análise antivírus (ClamAV) roda no app do desktop
           antes de instalar.
@@ -516,7 +516,7 @@ export default function Publish() {
           >
             <div className="space-y-2.5">
               {rows.map((row, index) => (
-                <div key={row.key} className="rounded-[var(--radius-card)] border border-line bg-surface-2 p-3">
+                <div key={row.key} className="glass-inset p-3">
                   <div className="flex items-center justify-between">
                     <p className="flex items-center gap-1.5 text-[11.5px] font-semibold text-ink-soft">
                       <OsIcon platform={row.platform} className="size-3.5" />
@@ -664,11 +664,11 @@ export default function Publish() {
         </div>
 
         <aside className="lg:sticky lg:top-4 lg:h-fit">
-          <div className="rounded-[var(--radius-card)] border border-line bg-surface p-3.5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">Prévia do anúncio</p>
-            <div className="mt-2.5 rounded-lg border border-line bg-surface-2/60">
+          <div className="glass-card p-4">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted">Prévia do anúncio</p>
+            <div className="mt-3 rounded-2xl border border-line bg-surface-2/40 p-2.5">
               <div
-                className="relative aspect-[16/9] w-full overflow-hidden rounded-t-[7px]"
+                className="relative aspect-[16/9] w-full overflow-hidden rounded-xl"
                 style={{
                   background: coverPreview
                     ? undefined
@@ -677,20 +677,22 @@ export default function Publish() {
               >
                 {coverPreview && <img src={coverPreview} alt="" className="h-full w-full object-cover" />}
               </div>
-              <div className="flex items-start gap-2.5 px-3 pb-3">
+              <div className="flex items-start gap-3 px-1 pb-1 pt-3">
                 <div
-                  className="-mt-8 grid size-14 shrink-0 place-items-center overflow-hidden rounded-[13px] ring-1 ring-black/10"
+                  className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-[15px] ring-1 ring-white/20"
                   style={{ background: accent }}
                 >
                   {logoPreview ? (
                     <img src={logoPreview} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <GhostMark className="size-8" />
+                    <GhostMark className="size-9" />
                   )}
                 </div>
-                <div className="min-w-0">
-                  <p className="truncate text-[12.5px] font-semibold">{name.trim() || 'Nome do app'}</p>
-                  <p className="truncate text-[10.5px] text-muted">{publisher.trim() || 'Publicador'}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[13px] font-semibold tracking-[-0.01em]">
+                    {name.trim() || 'Nome do app'}
+                  </p>
+                  <p className="truncate text-[11px] text-muted">{publisher.trim() || 'Publicador'}</p>
                   <p className="mt-1 line-clamp-2 text-[10.5px] leading-snug text-ink-soft">
                     {tagline.trim() || 'A descrição curta aparece aqui.'}
                   </p>
@@ -759,8 +761,8 @@ function EditSkeleton() {
 function EditBlocked({ message }: { message: string }) {
   return (
     <div className="mx-auto w-full max-w-[520px] px-4 py-16 text-center">
-      <GhostMark className="mx-auto size-12" glow />
-      <h1 className="mt-4 font-display text-[20px] font-semibold">Não foi possível editar</h1>
+      <GhostBadge size={76} className="mx-auto" />
+      <h1 className="mt-5 font-display text-[20px] font-semibold">Não foi possível editar</h1>
       <p className="mt-2 text-[12.5px] leading-relaxed text-muted">{message}</p>
       <Link
         to="/library"
@@ -775,8 +777,8 @@ function EditBlocked({ message }: { message: string }) {
 function AccountGate() {
   return (
     <div className="mx-auto w-full max-w-[520px] px-4 py-14 text-center sm:py-20">
-      <GhostMark className="mx-auto size-14" glow />
-      <h1 className="mt-4 font-display text-[22px] font-semibold tracking-[-0.02em]">
+      <GhostBadge size={84} className="mx-auto" />
+      <h1 className="mt-5 font-display text-[22px] font-semibold tracking-[-0.02em]">
         Crie uma conta para publicar
       </h1>
       <p className="mx-auto mt-2 max-w-[400px] text-[12.5px] leading-relaxed text-muted">
@@ -819,7 +821,7 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
+    <section className="glass-card p-4 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <h2 className="font-display text-[14px] font-semibold">{title}</h2>

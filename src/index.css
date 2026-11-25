@@ -1,296 +1,421 @@
 @import "tailwindcss";
 
+/* O tema é escolhido em JS (data-theme no <html>), não só pelo sistema. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
-  --color-bg: #eef2fb;
+  --color-bg: #e9edf8;
   --color-surface: #ffffff;
-  --color-surface-2: #f6f8fe;
+  --color-surface-2: #f1f4fc;
   --color-elevated: #ffffff;
-  --color-line: #dfe6f4;
-  --color-line-strong: #c9d5e8;
-  --color-ink: #0f172a;
-  --color-ink-soft: #334155;
-  --color-muted: #64748b;
-  --color-accent: #7c5cff;
-  --color-accent-soft: #efeaff;
-  --color-accent-ink: #5b3df5;
-  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
-  --radius-card: 12px;
+  --color-line: rgba(22, 28, 58, 0.1);
+  --color-line-strong: rgba(22, 28, 58, 0.18);
+  --color-ink: #12142a;
+  --color-ink-soft: #343a5a;
+  --color-muted: #6a7392;
+  --color-accent: #6b57f5;
+  --color-accent-soft: rgba(107, 87, 245, 0.1);
+  --color-accent-ink: #5943e8;
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Inter", sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Inter", sans-serif;
+  --radius-card: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0d1018;
-    --color-surface: #171c27;
-    --color-surface-2: #1c222f;
-    --color-elevated: #232a39;
-    --color-line: #283142;
-    --color-line-strong: #37425a;
-    --color-ink: #f2f5ff;
-    --color-ink-soft: #cdd6ea;
-    --color-muted: #94a3bd;
-    --color-accent: #a78bfa;
-    --color-accent-soft: #251f42;
-    --color-accent-ink: #c9b8ff;
-  }
-}
-
-/* ---------------------------------------------------------- liquid glass */
+/* ---------------------------------------------------------------- temas */
 
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-panel: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.75);
+  color-scheme: light;
+
+  --glass-bg: rgba(255, 255, 255, 0.34);
+  --glass-bg-strong: rgba(255, 255, 255, 0.52);
+  --glass-sheen: rgba(255, 255, 255, 0.48);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-border-hi: rgba(255, 255, 255, 0.9);
   --glass-hi: rgba(255, 255, 255, 0.95);
-  --glass-lo: rgba(23, 37, 84, 0.1);
-  --glass-sheen: rgba(255, 255, 255, 0.6);
-  --glass-ring: rgba(23, 37, 84, 0.06);
-  --glass-lift: 0 18px 40px -24px rgba(23, 37, 84, 0.45);
+  --glass-edge: rgba(19, 25, 56, 0.06);
+  --glass-field: rgba(255, 255, 255, 0.4);
+  --glass-blur: 26px;
+  --glass-sat: 180%;
+  --glass-lift: 0 22px 44px -30px rgba(24, 31, 72, 0.4);
+  --glass-lift-float: 0 34px 70px -34px rgba(24, 31, 72, 0.45);
+  --glass-outline: rgba(18, 24, 52, 0.09);
+
+  --ambient-a: #8fb0fb;
+  --ambient-b: #bda2ff;
+  --ambient-c: #ffadc9;
+  --ambient-base: #dfe5f5;
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #0a0c15;
+  --color-surface: #161a2a;
+  --color-surface-2: #1b2033;
+  --color-elevated: #232945;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-ink: #f3f5ff;
+  --color-ink-soft: #ccd3ea;
+  --color-muted: #97a0bd;
+  --color-accent: #9b88ff;
+  --color-accent-soft: rgba(155, 136, 255, 0.16);
+  --color-accent-ink: #c3b6ff;
+
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-strong: rgba(28, 34, 54, 0.72);
+  --glass-sheen: rgba(255, 255, 255, 0.13);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-hi: rgba(255, 255, 255, 0.3);
+  --glass-hi: rgba(255, 255, 255, 0.28);
+  --glass-edge: rgba(0, 0, 0, 0.5);
+  --glass-field: rgba(16, 20, 34, 0.5);
+  --glass-lift: 0 26px 50px -34px rgba(0, 0, 0, 0.75);
+  --glass-lift-float: 0 40px 80px -36px rgba(0, 0, 0, 0.85);
+  --glass-outline: rgba(255, 255, 255, 0.04);
+
+  --ambient-a: rgba(58, 84, 172, 0.45);
+  --ambient-b: rgba(118, 80, 186, 0.38);
+  --ambient-c: rgba(190, 88, 132, 0.2);
+  --ambient-base: #090b12;
+}
+
+/* sem escolha salva: segue o sistema */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --glass-bg: rgba(30, 38, 54, 0.55);
-    --glass-panel: rgba(24, 31, 44, 0.72);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-hi: rgba(255, 255, 255, 0.24);
-    --glass-lo: rgba(0, 0, 0, 0.38);
-    --glass-sheen: rgba(255, 255, 255, 0.14);
-    --glass-ring: rgba(255, 255, 255, 0.08);
-    --glass-lift: 0 18px 40px -22px rgba(0, 0, 0, 0.8);
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-bg: #0a0c15;
+    --color-surface: #161a2a;
+    --color-surface-2: #1b2033;
+    --color-elevated: #232945;
+    --color-line: rgba(255, 255, 255, 0.09);
+    --color-line-strong: rgba(255, 255, 255, 0.16);
+    --color-ink: #f3f5ff;
+    --color-ink-soft: #ccd3ea;
+    --color-muted: #97a0bd;
+    --color-accent: #9b88ff;
+    --color-accent-soft: rgba(155, 136, 255, 0.16);
+    --color-accent-ink: #c3b6ff;
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-bg-strong: rgba(28, 34, 54, 0.72);
+    --glass-sheen: rgba(255, 255, 255, 0.13);
+    --glass-border: rgba(255, 255, 255, 0.16);
+    --glass-border-hi: rgba(255, 255, 255, 0.3);
+    --glass-hi: rgba(255, 255, 255, 0.28);
+    --glass-edge: rgba(0, 0, 0, 0.5);
+    --glass-field: rgba(16, 20, 34, 0.5);
+    --glass-lift: 0 26px 50px -34px rgba(0, 0, 0, 0.75);
+    --glass-lift-float: 0 40px 80px -36px rgba(0, 0, 0, 0.85);
+    --glass-outline: rgba(255, 255, 255, 0.04);
+    --ambient-a: rgba(58, 84, 172, 0.45);
+    --ambient-b: rgba(118, 80, 186, 0.38);
+    --ambient-c: rgba(190, 88, 132, 0.2);
+    --ambient-base: #090b12;
   }
 }
 
-/* botão de vidro: painel fosco + aro especular + luz interna suave */
-.glass-btn {
-  position: relative;
-  isolation: isolate;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-surface) 78%, transparent),
-    color-mix(in srgb, var(--color-surface) 48%, transparent)
-  );
-  color: var(--color-ink);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  box-shadow:
-    inset 0 1px 0 var(--glass-hi),
-    inset 0 -1px 0 var(--glass-ring),
-    0 6px 18px -14px rgba(23, 37, 84, 0.5);
-  transition:
-    transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.18s ease,
-    background-color 0.18s ease,
-    filter 0.18s ease;
-  cursor: pointer;
-}
+/* ----------------------------------------------------------- materiais */
 
-@media (hover: hover) {
-  .glass-btn:hover {
-    filter: brightness(1.04);
-    border-color: color-mix(in srgb, #ffffff 92%, transparent);
+@layer components {
+  /* superfície principal: painéis de página, hero, faixas largas */
+  .glass-panel {
+    position: relative;
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, var(--glass-sheen) 0%, rgba(255, 255, 255, 0) 52%),
+      var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(var(--glass-sat));
+    -webkit-backdrop-filter: blur(30px) saturate(var(--glass-sat));
+    box-shadow:
+      0 0 0 1px var(--glass-outline),
+      inset 0 1px 1px var(--glass-hi),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.16),
+      var(--glass-lift);
   }
-}
 
-.glass-btn:active {
-  transform: scale(0.985);
-}
-
-.glass-btn:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.glass-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.42;
-  filter: grayscale(0.35);
-  transform: none;
-}
-
-/* variante tingida: vidro violeta com luz de fundo rosa */
-.glass-btn-accent {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 52%, #ec4899 100%);
-  color: #fff;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    inset 0 -8px 18px -12px rgba(255, 255, 255, 0.35),
-    0 8px 22px -12px rgba(147, 51, 234, 0.6);
-}
-
-@media (hover: hover) {
-  .glass-btn-accent:hover {
-    filter: brightness(1.06) saturate(1.05);
-    border-color: rgba(255, 255, 255, 0.6);
+  /* superfície secundária: cards de app, blocos internos */
+  .glass-card {
+    position: relative;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    background:
+      linear-gradient(180deg, var(--glass-sheen) 0%, rgba(255, 255, 255, 0) 54%),
+      var(--glass-bg);
+    backdrop-filter: blur(22px) saturate(calc(var(--glass-sat) - 10%));
+    -webkit-backdrop-filter: blur(22px) saturate(calc(var(--glass-sat) - 10%));
+    box-shadow:
+      0 0 0 1px var(--glass-outline),
+      inset 0 1px 1px var(--glass-hi),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.14),
+      var(--glass-lift);
+    transition:
+      transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 0.32s ease,
+      box-shadow 0.32s ease,
+      background-color 0.32s ease;
   }
-}
 
-/* versão discreta, sem tinta, para ações secundárias */
-.glass-btn-quiet {
-  color: var(--color-ink-soft);
-}
+  @media (hover: hover) {
+    a.glass-card:hover,
+    button.glass-card:hover,
+    .glass-card.is-interactive:hover {
+      transform: translateY(-2px);
+      border-color: var(--glass-border-hi);
+      box-shadow:
+        0 0 0 1px var(--glass-outline),
+        inset 0 1px 1px var(--glass-hi),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.16),
+        0 30px 56px -34px rgba(20, 27, 66, 0.45);
+    }
+  }
 
-/* botão circular (3 pontinhos e cia.) */
-.glass-icon {
-  position: relative;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  border: 1px solid var(--glass-border);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-surface) 72%, transparent),
-    color-mix(in srgb, var(--color-surface) 44%, transparent)
-  );
-  color: var(--color-ink-soft);
-  backdrop-filter: blur(14px) saturate(170%);
-  -webkit-backdrop-filter: blur(14px) saturate(170%);
-  box-shadow: inset 0 1px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-ring);
-  transition:
-    transform 0.16s ease,
-    color 0.16s ease,
-    background-color 0.16s ease;
-  cursor: pointer;
-}
+  /* flutuante: menus, diálogos, popovers */
+  .glass-float {
+    position: relative;
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, var(--glass-sheen) 0%, rgba(255, 255, 255, 0) 55%),
+      var(--glass-bg-strong);
+    backdrop-filter: blur(38px) saturate(calc(var(--glass-sat) + 10%));
+    -webkit-backdrop-filter: blur(38px) saturate(calc(var(--glass-sat) + 10%));
+    box-shadow:
+      0 0 0 1px var(--glass-outline),
+      inset 0 1px 1px var(--glass-hi),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.16),
+      var(--glass-lift-float);
+  }
 
-@media (hover: hover) {
-  .glass-icon:hover {
-    transform: translateY(-1px);
+  /* reentrância: campos, listas e blocos dentro de um painel */
+  .glass-inset {
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--color-surface-2) 52%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--glass-hi) 60%, transparent);
+  }
+
+  /* botão de vidro */
+  .glass-btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background:
+      linear-gradient(180deg, var(--glass-sheen) 0%, rgba(255, 255, 255, 0) 56%),
+      var(--glass-bg);
     color: var(--color-ink);
+    backdrop-filter: blur(22px) saturate(var(--glass-sat));
+    -webkit-backdrop-filter: blur(22px) saturate(var(--glass-sat));
+    box-shadow:
+      inset 0 1px 1px var(--glass-hi),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.16),
+      0 10px 24px -20px rgba(20, 27, 66, 0.55);
+    transition:
+      transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 0.24s ease,
+      border-color 0.24s ease,
+      filter 0.24s ease;
+    cursor: pointer;
   }
-}
 
-.glass-icon:active {
-  transform: scale(0.94);
-}
-
-.glass-icon[aria-expanded="true"] {
-  color: var(--color-accent-ink);
-  background: color-mix(in srgb, var(--color-accent) 22%, var(--glass-bg));
-}
-
-.glass-icon:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* painel do menu suspenso */
-.glass-menu {
-  border-radius: 14px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-panel);
-  backdrop-filter: blur(26px) saturate(180%);
-  -webkit-backdrop-filter: blur(26px) saturate(180%);
-  box-shadow:
-    inset 0 1px 0 var(--glass-hi),
-    var(--glass-lift);
-  padding: 6px;
-  animation: glass-pop 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-@keyframes glass-pop {
-  from {
-    opacity: 0;
-    transform: translateY(-4px) scale(0.97);
+  @media (hover: hover) {
+    .glass-btn:hover {
+      border-color: var(--glass-border-hi);
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
   }
-  to {
-    opacity: 1;
+
+  .glass-btn:active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  .glass-btn:focus-visible,
+  .glass-icon:focus-visible,
+  .glass-menu-item:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 75%, transparent);
+    outline-offset: 2px;
+  }
+
+  .glass-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    filter: grayscale(0.4);
     transform: none;
   }
-}
 
-.glass-menu-item {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  gap: 8px;
-  border-radius: 10px;
-  padding: 7px 10px;
-  font-size: 11.5px;
-  font-weight: 500;
-  color: var(--color-ink);
-  text-align: left;
-  transition: background-color 0.14s ease, color 0.14s ease;
-  cursor: pointer;
-}
+  /* ação principal: violeta com luz interna, sem excesso de cor */
+  .glass-btn-accent {
+    border-color: color-mix(in srgb, #ffffff 32%, transparent);
+    background: linear-gradient(155deg, #7a66ff 0%, #6b57f5 48%, #9a63f2 100%);
+    color: #fff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.42),
+      inset 0 -10px 20px -14px rgba(20, 10, 70, 0.55),
+      0 14px 30px -18px rgba(93, 64, 210, 0.65);
+  }
 
-.glass-menu-item:hover {
-  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
-}
+  @media (hover: hover) {
+    .glass-btn-accent:hover {
+      filter: brightness(1.06) saturate(1.02);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
 
-.glass-menu-item--danger {
-  color: #f2637c;
-}
+  .glass-btn-quiet {
+    color: var(--color-ink-soft);
+  }
 
-.glass-menu-item--danger:hover {
-  background: rgba(242, 99, 124, 0.16);
-  color: #ff7d93;
-}
+  /* botão circular / quadrado pequeno */
+  .glass-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background:
+      linear-gradient(180deg, var(--glass-sheen) 0%, rgba(255, 255, 255, 0) 58%),
+      var(--glass-bg);
+    color: var(--color-ink-soft);
+    backdrop-filter: blur(18px) saturate(var(--glass-sat));
+    -webkit-backdrop-filter: blur(18px) saturate(var(--glass-sat));
+    box-shadow:
+      inset 0 1px 1px var(--glass-hi),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.16);
+    transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    cursor: pointer;
+  }
 
-.glass-menu-sep {
-  height: 1px;
-  margin: 5px 6px;
-  background: color-mix(in srgb, var(--color-ink) 10%, transparent);
-}
+  @media (hover: hover) {
+    .glass-icon:hover {
+      transform: translateY(-1px);
+      color: var(--color-ink);
+      border-color: var(--glass-border-hi);
+    }
+  }
 
-/* cartão de app com superfície de vidro */
-.glass-card {
-  border-radius: 16px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px) saturate(170%);
-  -webkit-backdrop-filter: blur(18px) saturate(170%);
-  box-shadow:
-    inset 0 1px 0 var(--glass-hi),
-    inset 0 -1px 0 var(--glass-ring),
-    0 16px 34px -28px rgba(23, 37, 84, 0.55);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
+  .glass-icon:active {
+    transform: scale(0.95);
+  }
 
-@media (hover: hover) {
-  .glass-card:hover {
-    border-color: color-mix(in srgb, #ffffff 92%, transparent);
+  .glass-icon[aria-expanded="true"] {
+    color: var(--color-accent-ink);
+    border-color: color-mix(in srgb, var(--color-accent) 45%, var(--glass-border));
+  }
+
+  /* etiqueta pequena */
+  .glass-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    backdrop-filter: blur(16px) saturate(var(--glass-sat));
+    -webkit-backdrop-filter: blur(16px) saturate(var(--glass-sat));
+    box-shadow: inset 0 1px 1px var(--glass-hi);
+  }
+
+  /* painel do menu suspenso */
+  .glass-menu {
+    border-radius: 16px;
+    padding: 6px;
+    animation: glass-pop 0.18s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  .glass-menu-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-align: left;
+    transition: background-color 0.16s ease, color 0.16s ease;
+    cursor: pointer;
+  }
+
+  .glass-menu-item:hover {
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  }
+
+  .glass-menu-item--danger {
+    color: #e2556f;
+  }
+
+  .glass-menu-item--danger:hover {
+    background: rgba(226, 85, 111, 0.14);
+  }
+
+  .glass-menu-sep {
+    height: 1px;
+    margin: 5px 8px;
+    background: var(--color-line);
+  }
+
+  /* campo de texto de vidro */
+  .field {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-field);
+    color: var(--color-ink);
+    padding: 9px 12px;
+    font-size: 13px;
+    outline: none;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: inset 0 1px 0 var(--glass-hi);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  }
+
+  .field:hover {
+    border-color: var(--glass-border-hi);
+  }
+
+  .field:focus {
+    border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
     box-shadow:
       inset 0 1px 0 var(--glass-hi),
-      inset 0 -1px 0 var(--glass-ring),
-      0 20px 40px -28px rgba(23, 37, 84, 0.6);
+      0 0 0 3px color-mix(in srgb, var(--color-accent) 16%, transparent);
   }
 }
 
-/* banner que se dissolve no cartão em vez de terminar num corte seco */
-.banner-fade {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 55%,
-    rgba(0, 0, 0, 0.6) 78%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, rgba(0, 0, 0, 0.6) 78%, transparent 100%);
+/* -------------------------------------------------------------- fundo */
+
+.app-bg {
+  background:
+    radial-gradient(78% 62% at 6% -6%, var(--ambient-a) 0%, transparent 58%),
+    radial-gradient(58% 50% at 94% 4%, var(--ambient-b) 0%, transparent 58%),
+    radial-gradient(64% 50% at 54% 104%, var(--ambient-c) 0%, transparent 62%),
+    radial-gradient(38% 32% at 32% 58%, color-mix(in srgb, var(--ambient-a) 42%, transparent) 0%, transparent 72%),
+    var(--ambient-base);
+  background-attachment: fixed;
 }
 
-/* etiqueta de vidro pequena (versão, local etc.) */
-.glass-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  border-radius: 999px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-  padding: 2px 8px;
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--color-ink-soft);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  box-shadow: inset 0 1px 0 var(--glass-hi);
+/* grão finíssimo: tira o aspecto de gradiente digital */
+.app-grain {
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* texto grande com brilho suave, usado em títulos de vitrine */
+.title-soft {
+  letter-spacing: -0.028em;
+  text-wrap: balance;
 }
 
 html,
@@ -299,33 +424,15 @@ body,
   height: 100%;
 }
 
-/* fundo luminoso: azul sereno no topo, violeta à direita e rosa suave embaixo.
-   O vidro (backdrop-filter) precisa disso para ter o que desfocar. */
-.app-bg {
-  background:
-    radial-gradient(115% 85% at 6% -12%, rgba(147, 197, 253, 0.5) 0%, transparent 62%),
-    radial-gradient(95% 75% at 94% 2%, rgba(196, 181, 253, 0.42) 0%, transparent 60%),
-    radial-gradient(90% 70% at 52% 112%, rgba(251, 207, 232, 0.38) 0%, transparent 62%),
-    var(--color-bg);
-  background-attachment: fixed;
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-bg {
-    background:
-      radial-gradient(115% 85% at 6% -12%, rgba(59, 130, 246, 0.18) 0%, transparent 62%),
-      radial-gradient(95% 75% at 94% 2%, rgba(139, 92, 246, 0.2) 0%, transparent 60%),
-      radial-gradient(90% 70% at 52% 112%, rgba(236, 72, 153, 0.14) 0%, transparent 62%),
-      var(--color-bg);
-  }
-}
-
 body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: -0.008em;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overflow: hidden;
 }
 
@@ -334,26 +441,27 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
-/* scrollbars discretas, no estilo do Windows 11 */
+/* --------------------------------------------------------- rolagem */
+
 .scroll-area {
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--color-muted) 40%, transparent) transparent;
+  scrollbar-color: color-mix(in srgb, var(--color-muted) 35%, transparent) transparent;
 }
 .scroll-area::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 .scroll-area::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--color-muted) 34%, transparent);
+  background: color-mix(in srgb, var(--color-muted) 30%, transparent);
   border-radius: 999px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
 .scroll-area::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--color-muted) 60%, transparent);
+  background: color-mix(in srgb, var(--color-muted) 55%, transparent);
   background-clip: content-box;
 }
 .scroll-area::-webkit-scrollbar-track {
@@ -367,18 +475,47 @@ body {
   display: none;
 }
 
+/* ------------------------------------------------------- movimento */
+
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
+
 .animate-fade-up {
-  animation: fade-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: fade-up 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.998);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page-enter {
+  animation: page-in 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes glass-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes shimmer {
@@ -386,10 +523,12 @@ body {
     transform: translateX(100%);
   }
 }
+
 .skeleton {
   position: relative;
   overflow: hidden;
   background: color-mix(in srgb, var(--color-muted) 12%, transparent);
+  border: 1px solid var(--color-line);
 }
 .skeleton::after {
   content: "";
@@ -399,32 +538,33 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--color-muted) 14%, transparent),
+    color-mix(in srgb, var(--color-muted) 12%, transparent),
     transparent
   );
-  animation: shimmer 1.4s infinite;
+  animation: shimmer 1.6s ease-in-out infinite;
 }
 
-.card-hover {
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    border-color 0.18s ease;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
-.card-hover:hover {
-  border-color: var(--color-line-strong);
-  box-shadow: 0 6px 18px -14px rgba(0, 0, 0, 0.3);
-}
+
+/* --------------------------------------------------------- utilidades */
 
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(170%);
-  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
 }
 
-.acrylic {
-  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
-  backdrop-filter: blur(28px) saturate(160%);
+.hairline {
+  background: var(--color-line);
 }
 
 input,
@@ -432,6 +572,11 @@ textarea,
 select,
 button {
   font-family: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--color-muted) 82%, transparent);
 }
 
 /* janela sem moldura no app desktop: barra superior arrasta a janela */
@@ -450,25 +595,19 @@ button {
   app-region: no-drag;
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: color-mix(in srgb, var(--color-muted) 80%, transparent);
-}
-
-.field {
-  width: 100%;
-  border-radius: 9px;
-  border: 1px solid var(--color-line-strong);
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
-  color: var(--color-ink);
-  padding: 9px 12px;
-  font-size: 13px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.field:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 22%, transparent);
+/* telas sem backdrop-filter: superfícies sólidas, ainda legíveis */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel,
+  .glass-card,
+  .glass-float,
+  .glass-btn,
+  .glass-icon,
+  .glass-menu,
+  .glass-chip {
+    background: var(--color-surface);
+    border-color: var(--color-line);
+    box-shadow: 0 12px 28px -22px rgba(0, 0, 0, 0.4);
+  }
 }
 
 @media print {

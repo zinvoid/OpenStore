@@ -4,8 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OpenStore</title>
-    <link rel="icon" type="image/png" href="./icon.png?v=5" />
-    <meta name="theme-color" content="#0f0f12" />
+    <link rel="icon" type="image/png" href="./icon.png?v=6" />
+    <meta name="theme-color" content="#eef1fa" />
+    <script>
+      // aplica o tema salvo antes do primeiro paint, sem piscar
+      try {
+        var saved = localStorage.getItem('openstore.theme')
+        var dark =
+          saved === 'dark' ||
+          ((!saved || saved === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

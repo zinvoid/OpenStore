@@ -75,7 +75,7 @@ export default function Browse() {
             id="platform-filter"
             value={platform}
             onChange={(e) => update('platform', e.target.value)}
-            className="h-9 rounded-md border border-line-strong bg-surface px-2.5 text-[12px] text-ink outline-none focus:border-accent"
+            className="field h-9 w-auto py-0 pr-2 text-[12px]"
           >
             {PLATFORM_FILTERS.map((p) => (
               <option key={p.key} value={p.key}>
@@ -90,7 +90,7 @@ export default function Browse() {
             id="sort-filter"
             value={sort}
             onChange={(e) => update('sort', e.target.value)}
-            className="h-9 rounded-md border border-line-strong bg-surface px-2.5 text-[12px] text-ink outline-none focus:border-accent"
+            className="field h-9 w-auto py-0 pr-2 text-[12px]"
           >
             {SORTS.map((s) => (
               <option key={s.key} value={s.key}>
@@ -105,10 +105,10 @@ export default function Browse() {
         <button
           type="button"
           onClick={() => update('cat', '')}
-          className={`shrink-0 rounded-full border px-3 py-1.5 text-[12px] font-medium transition ${
+          className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[12px] font-medium transition ${
             !category
-              ? 'border-accent bg-accent-soft text-accent-ink'
-              : 'border-line bg-surface text-muted hover:text-ink'
+              ? 'border-transparent bg-accent-soft text-accent-ink'
+              : 'border-line bg-white/10 text-muted hover:text-ink dark:bg-white/[0.04]'
           }`}
         >
           Tudo
@@ -118,10 +118,10 @@ export default function Browse() {
             key={cat.key}
             type="button"
             onClick={() => update('cat', cat.key)}
-            className={`shrink-0 rounded-full border px-3 py-1.5 text-[12px] font-medium transition ${
+            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[12px] font-medium transition ${
               category === cat.key
-                ? 'border-accent bg-accent-soft text-accent-ink'
-                : 'border-line bg-surface text-muted hover:text-ink'
+                ? 'border-transparent bg-accent-soft text-accent-ink'
+                : 'border-line bg-white/10 text-muted hover:text-ink dark:bg-white/[0.04]'
             }`}
           >
             {cat.key}
@@ -131,7 +131,7 @@ export default function Browse() {
 
       <div className="mt-6">
         {error && (
-          <div className="rounded-[var(--radius-card)] border border-line bg-surface p-6 text-[13px] text-muted">
+          <div className="glass-card p-6 text-[13px] text-muted">
             Não foi possível carregar o catálogo: {error}
           </div>
         )}
@@ -145,7 +145,7 @@ export default function Browse() {
         )}
 
         {apps && apps.length === 0 && (
-          <div className="flex flex-col items-center rounded-[var(--radius-card)] border border-dashed border-line-strong bg-surface/50 px-6 py-16 text-center">
+          <div className="flex flex-col items-center rounded-[var(--radius-card)] border border-dashed border-line-strong bg-white/10 px-6 py-16 text-center dark:bg-white/[0.03]">
             <SearchIcon className="size-7 text-muted" />
             <p className="mt-3 text-[14px] font-semibold">Nada encontrado</p>
             <p className="mt-1 max-w-sm text-[12.5px] text-muted">
@@ -169,7 +169,7 @@ export default function Browse() {
         )}
       </div>
 
-      <div className="mt-10 flex flex-wrap items-center gap-2 rounded-[var(--radius-card)] border border-line bg-surface p-4 text-[12px] text-muted">
+      <div className="glass-card mt-10 flex flex-wrap items-center gap-2 p-4 text-[12px] text-muted">
         <GridIcon className="size-4 text-accent-ink" />
         Cada app mostra apenas os downloads compatíveis com o seu sistema, mas você pode abrir as outras versões
         na página do produto.

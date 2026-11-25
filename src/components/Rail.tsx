@@ -23,14 +23,14 @@ export function Rail({ title, subtitle, seeAllTo, children, tight }: Props) {
     <section className="relative">
       <div className="mb-3 flex items-end justify-between gap-3 px-0.5">
         <div>
-          <h2 className="font-display text-[17px] font-semibold tracking-[-0.01em] text-ink">{title}</h2>
+          <h2 className="font-display text-[17px] font-semibold tracking-[-0.02em] text-ink">{title}</h2>
           {subtitle && <p className="mt-0.5 text-[12px] text-muted">{subtitle}</p>}
         </div>
         <div className="flex items-center gap-1.5">
           {seeAllTo && (
             <Link
               to={seeAllTo}
-              className="rounded-md px-2 py-1 text-[12px] font-medium text-accent-ink hover:bg-accent-soft"
+              className="rounded-full px-2.5 py-1 text-[12px] font-medium text-accent-ink transition hover:bg-accent-soft"
             >
               Ver tudo
             </Link>
@@ -39,7 +39,7 @@ export function Rail({ title, subtitle, seeAllTo, children, tight }: Props) {
             type="button"
             onClick={() => scroll(-1)}
             aria-label="Rolar para a esquerda"
-            className="hidden size-7 items-center justify-center rounded-md border border-line bg-surface text-ink-soft hover:border-line-strong sm:flex"
+            className="glass-icon hidden size-7 sm:grid"
           >
             <ChevronLeftIcon className="size-3.5" />
           </button>
@@ -47,7 +47,7 @@ export function Rail({ title, subtitle, seeAllTo, children, tight }: Props) {
             type="button"
             onClick={() => scroll(1)}
             aria-label="Rolar para a direita"
-            className="hidden size-7 items-center justify-center rounded-md border border-line bg-surface text-ink-soft hover:border-line-strong sm:flex"
+            className="glass-icon hidden size-7 sm:grid"
           >
             <ChevronRightIcon className="size-3.5" />
           </button>

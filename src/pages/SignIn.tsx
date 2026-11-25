@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { GhostMark } from '../components/GhostLogo'
+import { GhostBadge } from '../components/GhostLogo'
 import { CheckIcon } from '../components/Icons'
 import {
   isStrongPassword,
@@ -54,7 +54,7 @@ export default function SignIn() {
   return (
     <div className="mx-auto flex w-full max-w-[420px] flex-col px-4 py-10 sm:py-16">
       <div className="flex flex-col items-center text-center">
-        <GhostMark className="size-14" glow />
+        <GhostBadge size={76} />
         <h1 className="mt-3 font-display text-[24px] font-semibold tracking-[-0.02em]">
           {signup ? 'Criar conta no OpenStore' : 'Entrar no OpenStore'}
         </h1>
@@ -65,15 +65,15 @@ export default function SignIn() {
         </p>
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-1 rounded-lg border border-line bg-surface-2 p-1">
+      <div className="glass-inset mt-5 grid grid-cols-2 gap-1 p-1">
         <button
           type="button"
           onClick={() => {
             setMode('login')
             setError(null)
           }}
-          className={`rounded-md py-1.5 text-[12px] font-medium transition ${
-            !signup ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink'
+          className={`rounded-[10px] py-1.5 text-[12px] font-medium transition ${
+            !signup ? 'bg-white/80 text-ink shadow-sm dark:bg-white/10' : 'text-muted hover:text-ink'
           }`}
         >
           Entrar
@@ -84,15 +84,15 @@ export default function SignIn() {
             setMode('signup')
             setError(null)
           }}
-          className={`rounded-md py-1.5 text-[12px] font-medium transition ${
-            signup ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink'
+          className={`rounded-[10px] py-1.5 text-[12px] font-medium transition ${
+            signup ? 'bg-white/80 text-ink shadow-sm dark:bg-white/10' : 'text-muted hover:text-ink'
           }`}
         >
           Criar conta
         </button>
       </div>
 
-      <form onSubmit={submit} className="mt-4 rounded-[var(--radius-card)] border border-line bg-surface p-4">
+      <form onSubmit={submit} className="glass-card mt-4 p-5">
         <label className="block">
           <span className="mb-1 block text-[11.5px] font-medium text-ink-soft">Nome de usuário</span>
           <div className="relative">
