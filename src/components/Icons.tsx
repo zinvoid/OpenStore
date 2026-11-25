@@ -16,46 +16,55 @@ export function SearchIcon({ className }: IconProps) {
 
 export function HomeIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={base(className)}>
-      <path d="M4 10.6 12 4l8 6.6V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1v-9.4Z" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={base(className)}>
+      <path d="M4.6 10.4 12 4.3l7.4 6.1v8.1a2.1 2.1 0 0 1-2.1 2.1H6.7a2.1 2.1 0 0 1-2.1-2.1v-8.1Z" strokeLinejoin="round" />
+      <path d="M9.7 20.6v-4.4a1.4 1.4 0 0 1 1.4-1.4h1.8a1.4 1.4 0 0 1 1.4 1.4v4.4" strokeLinejoin="round" />
     </svg>
   )
 }
 
 export function GridIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={base(className)}>
-      <rect x="3.5" y="3.5" width="7" height="7" rx="1.6" />
-      <rect x="13.5" y="3.5" width="7" height="7" rx="1.6" />
-      <rect x="3.5" y="13.5" width="7" height="7" rx="1.6" />
-      <rect x="13.5" y="13.5" width="7" height="7" rx="1.6" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={base(className)}>
+      <rect x="3.8" y="3.8" width="7.2" height="7.2" rx="2.1" />
+      <rect x="13" y="3.8" width="7.2" height="7.2" rx="2.1" />
+      <rect x="3.8" y="13" width="7.2" height="7.2" rx="2.1" />
+      <rect x="13" y="13" width="7.2" height="7.2" rx="2.1" />
     </svg>
   )
 }
 
 export function SparkIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={base(className)}>
-      <path d="M12 3.5 13.9 9l5.6 1.9-5.6 1.9L12 18.5l-1.9-5.7L4.5 10.9 10.1 9 12 3.5Z" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={base(className)}>
+      <path
+        d="M12 3.8c.6 4.2 2.8 6.5 7 7.1-4.2.6-6.4 2.9-7 7.1-.6-4.2-2.8-6.5-7-7.1 4.2-.6 6.4-2.9 7-7.1Z"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }
 
 export function LibraryIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={base(className)}>
-      <rect x="4" y="4" width="4.5" height="16" rx="1.2" />
-      <rect x="10.2" y="4" width="4.5" height="16" rx="1.2" />
-      <path d="m16.6 5.4 3.6 1-3.2 13.2-3.6-1" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={base(className)}>
+      <path
+        d="M5.2 4.6h8.9a2.5 2.5 0 0 1 2.5 2.5v11.1a1.2 1.2 0 0 1-1.2 1.2H7.7a2.5 2.5 0 0 1-2.5-2.5V4.6Z"
+        strokeLinejoin="round"
+      />
+      <path d="M5.2 16.9a2.5 2.5 0 0 1 2.5-2.5h8.9" strokeLinejoin="round" />
     </svg>
   )
 }
 
 export function UploadIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={base(className)}>
-      <path d="M12 16V5m0 0L7.5 9.5M12 5l4.5 4.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M4.5 15v3.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V15" strokeLinecap="round" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={base(className)}>
+      <path d="M12 15.6V4.9m0 0L8.3 8.6M12 4.9l3.7 3.7" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M4.9 14.7v3.2a1.9 1.9 0 0 0 1.9 1.9h10.4a1.9 1.9 0 0 0 1.9-1.9v-3.2"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }

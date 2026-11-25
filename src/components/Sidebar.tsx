@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { GhostBadge } from './GhostLogo'
+import { GhostMark } from './GhostLogo'
 import { BUILD_VERSION } from '../lib/releases'
 import { isDesktop } from '../lib/desktop'
 import { GridIcon, HomeIcon, LibraryIcon, SparkIcon, UploadIcon } from './Icons'
@@ -31,30 +31,29 @@ export function Sidebar() {
 
   return (
     <aside className="glass-panel relative m-3 mr-0 hidden w-[86px] shrink-0 flex-col items-center rounded-[26px] py-4 md:flex">
-      <NavLink to="/home" className="mb-5 block" aria-label="OpenStore — início">
-        <GhostBadge size={58} />
+      <NavLink to="/home" className="mb-6 block" aria-label="OpenStore — início">
+        <GhostMark className="size-[56px]" />
       </NavLink>
 
-      <nav className="flex w-full flex-col items-center gap-1 px-1.5">
+      <nav className="flex w-full flex-col items-center gap-1.5 px-2">
         {NAV.map(({ to, label, icon: Icon }) => {
           const active = isActive(to)
           return (
-            <NavLink key={to} to={to} className="group w-full">
+            <NavLink
+              key={to}
+              to={to}
+              title={label}
+              aria-label={label}
+              className="group grid w-full place-items-center"
+            >
               <span
-                className={`flex w-full flex-col items-center gap-1.5 rounded-2xl py-2 text-[10px] font-medium transition-colors duration-200 ${
-                  active ? 'text-ink' : 'text-muted group-hover:text-ink-soft'
+                className={`grid size-11 place-items-center rounded-2xl transition-colors duration-200 ${
+                  active
+                    ? 'bg-accent/12 text-accent dark:bg-accent/18'
+                    : 'text-muted group-hover:bg-ink/[0.05] group-hover:text-ink-soft dark:group-hover:bg-white/[0.06]'
                 }`}
               >
-                <span
-                  className={`grid size-9 place-items-center rounded-xl transition-all duration-200 ${
-                    active
-                      ? 'bg-accent text-white shadow-[0_10px_22px_-12px_rgba(107,87,245,0.9)]'
-                      : 'group-hover:bg-white/10 dark:group-hover:bg-white/[0.06]'
-                  }`}
-                >
-                  <Icon className="size-[18px]" />
-                </span>
-                <span className="tracking-[-0.01em]">{label}</span>
+                <Icon className="size-[23px]" />
               </span>
             </NavLink>
           )
@@ -85,14 +84,19 @@ export function MobileNav() {
           <NavLink
             key={to}
             to={to}
-            className={`flex flex-1 flex-col items-center gap-1 rounded-2xl py-1.5 text-[9.5px] font-medium transition-colors ${
-              active ? 'text-ink' : 'text-muted'
+            title={label}
+            aria-label={label}
+            className={`grid flex-1 place-items-center rounded-2xl py-2 transition-colors ${
+              active ? 'text-accent' : 'text-muted'
             }`}
           >
-            <span className={`grid size-8 place-items-center rounded-xl transition ${active ? 'bg-accent text-white' : ''}`}>
-              <Icon className="size-[17px]" />
+            <span
+              className={`grid size-10 place-items-center rounded-xl transition ${
+                active ? 'bg-accent/12 dark:bg-accent/18' : ''
+              }`}
+            >
+              <Icon className="size-[22px]" />
             </span>
-            <span>{label}</span>
           </NavLink>
         )
       })}
