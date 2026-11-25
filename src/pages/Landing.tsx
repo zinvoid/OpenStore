@@ -44,8 +44,8 @@ export default function Landing() {
   }, [])
 
   return (
-    <div className="scroll-area h-full overflow-y-auto bg-bg text-ink">
-      <header className="sticky top-0 z-30 border-b border-line bg-bg/85 backdrop-blur-xl">
+    <div className="app-bg scroll-area h-full overflow-y-auto text-ink">
+      <header className="sticky top-0 z-30 border-b border-line bg-surface/55 backdrop-blur-2xl">
         <div className="mx-auto flex h-[58px] w-full max-w-[1120px] items-center gap-3 px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2">
             <GhostMark className="size-7" />

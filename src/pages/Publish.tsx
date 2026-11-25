@@ -52,7 +52,6 @@ export default function Publish() {
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState<string>(CATEGORIES[0].key)
   const [version, setVersion] = useState('1.0.0')
-  const [price, setPrice] = useState('0')
   const [website, setWebsite] = useState('')
   const [supportUrl, setSupportUrl] = useState('')
   const [accent, setAccent] = useState(ACCENTS[0])
@@ -76,7 +75,6 @@ export default function Publish() {
   )
   const tagList = tags.split(',').map((t) => t.trim()).filter(Boolean)
   const langList = languages.split(',').map((l) => l.trim()).filter(Boolean)
-  const priceCents = Math.max(0, Math.round((Number(price) || 0) * 100))
   const platforms = useMemo(() => Array.from(new Set(rows.map((r) => r.platform))), [rows])
 
   useEffect(() => {
@@ -94,7 +92,6 @@ export default function Publish() {
         setDescription(app.description ?? '')
         setCategory(app.category)
         setVersion(app.version ?? '1.0.0')
-        setPrice(String((app.price_cents ?? 0) / 100))
         setWebsite(app.website ?? '')
         setSupportUrl(app.support_url ?? '')
         setAccent(app.accent ?? ACCENTS[0])
@@ -217,7 +214,7 @@ export default function Publish() {
         description,
         category,
         version,
-        priceCents,
+        priceCents: 0,
         website,
         supportUrl,
         accent,
@@ -321,7 +318,7 @@ export default function Publish() {
                 required
               />
             </Field>
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Categoria">
                 <select value={category} onChange={(e) => setCategory(e.target.value)} className="field">
                   {CATEGORIES.map((c) => (
@@ -333,16 +330,6 @@ export default function Publish() {
               </Field>
               <Field label="Versão">
                 <input value={version} onChange={(e) => setVersion(e.target.value)} className="field" maxLength={24} />
-              </Field>
-              <Field label="Preço (R$)" hint="0 = grátis">
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className="field"
-                />
               </Field>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -679,9 +666,9 @@ export default function Publish() {
         <aside className="lg:sticky lg:top-4 lg:h-fit">
           <div className="rounded-[var(--radius-card)] border border-line bg-surface p-3.5">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">Prévia do anúncio</p>
-            <div className="mt-2.5 overflow-hidden rounded-lg border border-line">
+            <div className="mt-2.5 rounded-lg border border-line bg-surface-2/60">
               <div
-                className="relative aspect-[16/9] w-full overflow-hidden"
+                className="relative aspect-[16/9] w-full overflow-hidden rounded-t-[7px]"
                 style={{
                   background: coverPreview
                     ? undefined
@@ -690,15 +677,15 @@ export default function Publish() {
               >
                 {coverPreview && <img src={coverPreview} alt="" className="h-full w-full object-cover" />}
               </div>
-              <div className="flex items-start gap-2.5 p-2.5">
+              <div className="flex items-start gap-2.5 px-3 pb-3">
                 <div
-                  className="-mt-7 grid size-12 shrink-0 place-items-center overflow-hidden rounded-[12px] ring-1 ring-black/10"
+                  className="-mt-8 grid size-14 shrink-0 place-items-center overflow-hidden rounded-[13px] ring-1 ring-black/10"
                   style={{ background: accent }}
                 >
                   {logoPreview ? (
                     <img src={logoPreview} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <GhostMark className="size-7" />
+                    <GhostMark className="size-8" />
                   )}
                 </div>
                 <div className="min-w-0">
@@ -714,7 +701,6 @@ export default function Publish() {
             <dl className="mt-3 space-y-1.5 text-[11px]">
               <PreviewRow label="Categoria" value={category} />
               <PreviewRow label="Versão" value={version || '1.0.0'} />
-              <PreviewRow label="Preço" value={priceCents ? `R$ ${(priceCents / 100).toFixed(2)}` : 'Grátis'} />
               <PreviewRow label="Classificação" value={ageRating} />
               <PreviewRow
                 label="Plataformas"

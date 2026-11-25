@@ -26,7 +26,7 @@ export default function App() {
   if (location.pathname === '/') return <Navigate to="/home" replace />
 
   return (
-    <div className="flex h-full w-full overflow-hidden bg-bg text-ink">
+    <div className="app-bg flex h-full w-full overflow-hidden text-ink">
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar />

@@ -38,7 +38,7 @@ export function TopBar() {
 
   return (
     <header
-      className="app-drag relative z-20 flex h-[56px] shrink-0 items-center gap-3 border-b border-line bg-surface/80 px-3 backdrop-blur-xl sm:px-5"
+      className="app-drag relative z-20 flex h-[56px] shrink-0 items-center gap-3 border-b border-line bg-surface/55 px-3 backdrop-blur-2xl sm:px-5"
       onDoubleClick={(event) => {
         if (!frameless) return
         if ((event.target as HTMLElement).closest('a, button, input, select, form')) return

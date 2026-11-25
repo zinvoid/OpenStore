@@ -21,7 +21,7 @@ function itemClass(active: boolean) {
 
 export function Sidebar() {
   return (
-    <aside className="hidden w-[78px] shrink-0 flex-col items-center gap-0.5 border-r border-line bg-surface-2 py-3 md:flex">
+    <aside className="hidden w-[78px] shrink-0 flex-col items-center gap-0.5 border-r border-line bg-surface/40 py-3 backdrop-blur-2xl md:flex">
       <NavLink to="/home" className="mb-3 flex flex-col items-center gap-1" aria-label="OpenStore — início">
         <GhostMark className="size-8" glow />
       </NavLink>
