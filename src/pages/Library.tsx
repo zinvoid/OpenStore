@@ -404,7 +404,7 @@ function InstalledApps() {
           ))}
         </div>
       ) : apps.length === 0 ? (
-        <div className="mt-3 flex flex-col items-center rounded-2xl border border-dashed border-line-strong bg-surface/50 px-6 py-12 text-center backdrop-blur">
+        <div className="mt-3 flex flex-col items-center rounded-xl border border-dashed border-line-strong bg-surface px-6 py-12 text-center">
           <span className="grid size-16 place-items-center rounded-2xl bg-accent-soft">
             <GhostMark className="size-10" />
           </span>

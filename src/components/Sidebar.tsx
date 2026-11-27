@@ -30,9 +30,9 @@ export function Sidebar() {
   const isActive = useActiveItem()
 
   return (
-    <aside className="glass-panel relative m-3 mr-0 hidden w-[86px] shrink-0 flex-col items-center rounded-[26px] py-4 md:flex">
+    <aside className="glass-panel relative m-3 mr-0 hidden w-[86px] shrink-0 flex-col items-center rounded-[12px] py-4 md:flex">
       <NavLink to="/home" className="mb-6 block" aria-label="OpenStore — início">
-        <GhostMark className="size-[56px]" />
+        <GhostMark className="size-[64px]" />
       </NavLink>
 
       <nav className="flex w-full flex-col items-center gap-1.5 px-2">
@@ -62,9 +62,14 @@ export function Sidebar() {
 
       <div className="mt-auto flex flex-col items-center gap-1 px-2 text-center text-[9px] leading-tight text-muted/70">
         {!isDesktop && (
-          <NavLink to="/" title="Site público" className="rounded-full px-2 py-1 font-medium text-muted hover:text-ink">
-            site
-          </NavLink>
+          <>
+            <NavLink to="/" title="Site público" className="rounded-full px-2 py-1 font-medium text-muted hover:text-ink">
+              site
+            </NavLink>
+            <NavLink to="/guia" title="Guias" className="rounded-full px-2 py-1 font-medium text-muted hover:text-ink">
+              guias
+            </NavLink>
+          </>
         )}
         <span className="glass-chip !px-2 !py-0.5 !text-[8.5px] uppercase tracking-[0.1em]">beta</span>
         <span className="tabular-nums">{BUILD_VERSION}</span>
@@ -77,7 +82,7 @@ export function MobileNav() {
   const isActive = useActiveItem()
 
   return (
-    <nav className="glass-float fixed inset-x-3 bottom-3 z-30 flex items-stretch justify-around rounded-[22px] px-1 pb-[calc(env(safe-area-inset-bottom)+4px)] pt-1.5 md:hidden">
+    <nav className="glass-float fixed inset-x-3 bottom-3 z-30 flex items-stretch justify-around rounded-[12px] px-1 pb-[calc(env(safe-area-inset-bottom)+4px)] pt-1.5 md:hidden">
       {NAV.map(({ to, label, icon: Icon }) => {
         const active = isActive(to)
         return (

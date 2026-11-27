@@ -73,7 +73,7 @@ export default function SignIn() {
             setError(null)
           }}
           className={`rounded-[10px] py-1.5 text-[12px] font-medium transition ${
-            !signup ? 'bg-white/80 text-ink shadow-sm dark:bg-white/10' : 'text-muted hover:text-ink'
+            !signup ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink'
           }`}
         >
           Entrar
@@ -85,7 +85,7 @@ export default function SignIn() {
             setError(null)
           }}
           className={`rounded-[10px] py-1.5 text-[12px] font-medium transition ${
-            signup ? 'bg-white/80 text-ink shadow-sm dark:bg-white/10' : 'text-muted hover:text-ink'
+            signup ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink'
           }`}
         >
           Criar conta

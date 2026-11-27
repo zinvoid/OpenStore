@@ -26,8 +26,8 @@ export function AppTile({ app, size = 60, radius = 16, className = '', glow = fa
         width: size,
         height: size,
         borderRadius: radius,
-        background: logo ? `linear-gradient(150deg, ${accent}33, ${accent}0d)` : `linear-gradient(150deg, ${accent}, ${accent}bb)`,
-        boxShadow: glow ? `0 14px 34px -14px ${accent}` : `inset 0 0 0 1px rgba(255,255,255,0.14)`,
+        background: logo ? `${accent}14` : accent,
+        boxShadow: glow ? `0 10px 24px -16px ${accent}` : `inset 0 0 0 1px rgba(0,0,0,0.08)`,
       }}
     >
       {logo ? (
@@ -40,8 +40,7 @@ export function AppTile({ app, size = 60, radius = 16, className = '', glow = fa
           {initials || '?'}
         </span>
       )}
-      <span className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-b from-white/20 to-transparent opacity-60 mix-blend-overlay" />
-      <span className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/15" />
+      <span className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-black/10 dark:ring-white/10" />
     </div>
   )
 }

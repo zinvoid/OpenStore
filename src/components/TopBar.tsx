@@ -39,7 +39,7 @@ export function TopBar() {
 
   return (
     <header
-      className="app-drag glass-float relative z-20 mx-3 mt-3 flex h-[56px] shrink-0 items-center gap-2.5 rounded-[20px] px-3 sm:gap-3 sm:px-4"
+      className="app-drag glass-float relative z-20 mx-3 mt-3 flex h-[56px] shrink-0 items-center gap-2.5 rounded-[12px] px-3 sm:gap-3 sm:px-4"
       onDoubleClick={(event) => {
         if (!frameless) return
         if ((event.target as HTMLElement).closest('a, button, input, select, form')) return
@@ -47,10 +47,10 @@ export function TopBar() {
       }}
     >
       <Link to="/home" className="flex shrink-0 items-center gap-2.5 md:hidden" aria-label="OpenStore — início">
-        <GhostMark className="size-9" glow />
+        <GhostMark className="size-10" glow />
       </Link>
       <Link to="/home" className="hidden shrink-0 items-center gap-2.5 rounded-xl px-1 py-1 md:flex" aria-label="OpenStore — início">
-        <GhostMark className="size-9" glow />
+        <GhostMark className="size-10" glow />
         <span className="font-display text-[15px] font-semibold tracking-[-0.02em]">OpenStore</span>
       </Link>
 
@@ -63,9 +63,9 @@ export function TopBar() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Pesquisar apps, ferramentas e categorias"
             aria-label="Pesquisar"
-            className="field h-10 w-full rounded-full pl-10 pr-12 text-[13px]"
+            className="field h-10 w-full rounded-lg pl-10 pr-12 text-[13px]"
           />
-          <kbd className="pointer-events-none absolute right-3.5 top-1/2 hidden -translate-y-1/2 rounded-md border border-line px-1.5 py-0.5 text-[10px] text-muted sm:block">
+          <kbd className="pointer-events-none absolute right-3.5 top-1/2 hidden -translate-y-1/2 rounded border border-line px-1.5 py-0.5 text-[10px] text-muted sm:block">
             /
           </kbd>
         </form>
@@ -96,7 +96,7 @@ export function TopBar() {
               }}
               aria-label="Sair da conta"
               title="Sair"
-              className="grid size-8 place-items-center rounded-full text-muted transition hover:bg-white/10 hover:text-ink"
+              className="grid size-8 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-ink"
             >
               <LogoutIcon className="size-4" />
             </button>
@@ -109,7 +109,7 @@ export function TopBar() {
       </div>
       <WindowControls />
       {location.pathname === '/publish' && (
-        <span className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/45 to-transparent" />
+        <span className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-accent/50" />
       )}
     </header>
   )

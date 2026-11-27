@@ -428,7 +428,7 @@ function createWindow() {
     height: 880,
     minWidth: 880,
     minHeight: 640,
-    backgroundColor: '#0f0f12',
+    backgroundColor: '#1b1b1b',
     autoHideMenuBar: true,
     show: false,
     // janela própria, sem a barra do Windows: o cabeçalho do app faz esse papel

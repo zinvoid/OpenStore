@@ -314,7 +314,7 @@ export default function AppDetail() {
       </div>
 
       {/* abas */}
-      <div className="sticky top-0 z-10 mt-6 border-b border-line bg-white/20 backdrop-blur-xl dark:bg-white/[0.03]">
+      <div className="sticky top-0 z-10 mt-6 border-b border-line bg-bg">
         <div className="mx-auto flex w-full max-w-[1220px] items-center gap-1 overflow-x-auto px-4 no-scrollbar sm:px-6 lg:px-8">
           {TABS.map((t) => (
             <button
@@ -659,7 +659,7 @@ export default function AppDetail() {
           type="button"
           aria-label="Fechar imagem"
           onClick={() => setLightbox(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"
         >
           <img src={lightbox} alt="" className="max-h-full max-w-full rounded-lg shadow-2xl" />
         </button>

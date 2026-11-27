@@ -42,12 +42,6 @@ export default function Home() {
     return (
       <div className="mx-auto w-full max-w-[1500px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <section className="glass-panel relative overflow-hidden px-6 py-16 text-center">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-60"
-            style={{
-              background: 'radial-gradient(70% 120% at 50% 0%, color-mix(in srgb, var(--color-accent) 22%, transparent) 0%, transparent 68%)',
-            }}
-          />
           <div className="relative mx-auto flex max-w-[480px] flex-col items-center">
             <GhostBadge size={92} />
             <h1 className="title-soft mt-6 font-display text-[26px] font-semibold sm:text-[30px]">
@@ -133,8 +127,8 @@ export default function Home() {
               className="glass-card group relative overflow-hidden p-4"
             >
               <span
-                className="absolute inset-x-0 top-0 h-[3px]"
-                style={{ background: `linear-gradient(90deg, ${cat.accent}, ${cat.accent}00)` }}
+                className="absolute inset-x-0 top-0 h-[2px]"
+                style={{ background: cat.accent }}
               />
               <p className="text-[13px] font-semibold text-ink">{cat.key}</p>
               <p className="mt-1 text-[11px] text-muted">
@@ -186,7 +180,7 @@ function RecentCard({ app }: { app: AppWithDownloads }) {
         {cover ? (
           <img src={cover} alt="" className="h-full w-full object-cover" loading="lazy" />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-white/20 to-transparent" />
+          <div className="h-full w-full bg-black/20" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-2.5 left-3">

@@ -23,7 +23,7 @@ export function Hero({ apps }: { apps: App[] }) {
   const current = slides[Math.min(index, slides.length - 1)]
 
   return (
-    <section className="relative overflow-hidden rounded-[26px] border border-white/15 bg-[#0c0f1c] shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_34px_70px_-42px_rgba(12,15,28,0.9)]">
+    <section className="relative overflow-hidden rounded-[14px] border border-line bg-[#101010]">
       <div className="relative flex h-[300px] flex-col justify-end sm:h-[360px] lg:h-[420px]">
         {slides.map((app, i) => (
           <img
@@ -40,7 +40,7 @@ export function Hero({ apps }: { apps: App[] }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#070a14]/92 via-[#070a14]/25 to-transparent" />
 
         <div className="relative flex flex-col p-5 sm:p-8 lg:p-10">
-          <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-white/18 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80 backdrop-blur-md">
+          <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
             Em destaque
           </span>
           <div className="flex items-center gap-3.5">
@@ -61,14 +61,14 @@ export function Hero({ apps }: { apps: App[] }) {
           <div className="mt-6 flex flex-wrap items-center gap-2.5">
             <Link
               to={`/app/${current.slug}`}
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-[13px] font-semibold text-[#101322] shadow-[0_14px_30px_-18px_rgba(255,255,255,0.6)] transition hover:bg-white/92"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-[13px] font-semibold text-[#101010] transition hover:bg-white/90"
             >
               <DownloadIcon className="size-4" />
               Baixar agora
             </Link>
             <Link
               to={`/app/${current.slug}`}
-              className="rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-[13px] font-medium text-white/90 backdrop-blur-md transition hover:border-white/35 hover:bg-white/15"
+              className="rounded-lg border border-white/25 bg-white/10 px-4 py-2.5 text-[13px] font-medium text-white/90 transition hover:border-white/40 hover:bg-white/15"
             >
               Ver detalhes
             </Link>
@@ -81,7 +81,7 @@ export function Hero({ apps }: { apps: App[] }) {
               type="button"
               onClick={() => setIndex((i) => (i - 1 + slides.length) % slides.length)}
               aria-label="Destaque anterior"
-              className="absolute left-3 top-1/2 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/18 bg-black/25 text-white/80 backdrop-blur-md transition hover:bg-black/45 sm:flex"
+              className="absolute left-3 top-1/2 hidden size-9 -translate-y-1/2 items-center justify-center rounded-md border border-white/20 bg-black/45 text-white/85 transition hover:bg-black/65 sm:flex"
             >
               <ChevronLeftIcon className="size-4" />
             </button>
@@ -89,7 +89,7 @@ export function Hero({ apps }: { apps: App[] }) {
               type="button"
               onClick={() => setIndex((i) => (i + 1) % slides.length)}
               aria-label="Próximo destaque"
-              className="absolute right-3 top-1/2 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/18 bg-black/25 text-white/80 backdrop-blur-md transition hover:bg-black/45 sm:flex"
+              className="absolute right-3 top-1/2 hidden size-9 -translate-y-1/2 items-center justify-center rounded-md border border-white/20 bg-black/45 text-white/85 transition hover:bg-black/65 sm:flex"
             >
               <ChevronRightIcon className="size-4" />
             </button>

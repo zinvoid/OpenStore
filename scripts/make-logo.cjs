@@ -17,8 +17,10 @@ if (!fs.existsSync(SRC)) {
   process.exit(1)
 }
 
-// margem em fração do lado (7% deixa o desenho grande sem encostar na borda)
-const PAD = 0.07
+// margem em fração do lado (5% deixa o desenho grande sem encostar na borda)
+const PAD = 0.05
+// fundo claro arredondado: a arte é preta e some num tema escuro sem a placa
+const TILE = '#fbfaf7'
 const OUTPUTS = [
   { file: 'build/icon.png', size: 1024 },
   { file: 'public/icon.png', size: 512 },
@@ -118,6 +120,23 @@ app.whenReady().then(async () => {
       const octx = out.getContext('2d')
       octx.imageSmoothingEnabled = true
       octx.imageSmoothingQuality = 'high'
+
+      // placa arredondada de fundo
+      const r = size * 0.225
+      octx.beginPath()
+      octx.moveTo(r, 0)
+      octx.lineTo(size - r, 0)
+      octx.quadraticCurveTo(size, 0, size, r)
+      octx.lineTo(size, size - r)
+      octx.quadraticCurveTo(size, size, size - r, size)
+      octx.lineTo(r, size)
+      octx.quadraticCurveTo(0, size, 0, size - r)
+      octx.lineTo(0, r)
+      octx.quadraticCurveTo(0, 0, r, 0)
+      octx.closePath()
+      octx.fillStyle = ${JSON.stringify(TILE)}
+      octx.fill()
+
       const pad = Math.round(size * ${PAD})
       octx.drawImage(canvas, sx, sy, side, side, pad, pad, size - pad * 2, size - pad * 2)
       return out.toDataURL('image/png')

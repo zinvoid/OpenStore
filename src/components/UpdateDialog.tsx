@@ -92,10 +92,10 @@ export function UpdateDialog() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="update-title"
-      className="fixed inset-0 z-[80] grid place-items-center bg-black/35 p-4 backdrop-blur-2xl"
+      className="fixed inset-0 z-[80] grid place-items-center bg-black/45 p-4"
     >
       <div
-        className="glass-float animate-fade-up relative w-full max-w-[470px] overflow-hidden rounded-[24px]"
+        className="glass-float animate-fade-up relative w-full max-w-[470px] overflow-hidden rounded-[14px]"
       >
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-70"

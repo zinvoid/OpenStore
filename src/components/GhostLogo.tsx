@@ -1,12 +1,14 @@
+import type { CSSProperties } from 'react'
 import { assetUrl } from '../lib/format'
 
 interface Props {
   className?: string
   glow?: boolean
+  style?: CSSProperties
 }
 
-/** Marca da OpenStore: o ícone de vidro oficial (public/icon.png). */
-export function GhostMark({ className = 'size-9', glow = false }: Props) {
+/** Marca da OpenStore: a sacola com o fantasma (public/icon.png). */
+export function GhostMark({ className = 'size-9', glow = false, style }: Props) {
   return (
     <img
       src={assetUrl('icon.png')}
@@ -14,21 +16,22 @@ export function GhostMark({ className = 'size-9', glow = false }: Props) {
       aria-hidden="true"
       draggable={false}
       decoding="async"
+      style={style}
       className={`${className} shrink-0 object-contain ${
-        glow ? 'drop-shadow-[0_10px_26px_rgba(107,87,245,0.35)]' : ''
+        glow ? 'drop-shadow-[0_8px_18px_rgba(16,16,16,0.18)]' : ''
       }`}
     />
   )
 }
 
-/** A marca dentro de uma placa de vidro — usada no rail, no login e na vitrine. */
+/** A marca dentro de uma placa — usada no login, na vitrine e nas promoções. */
 export function GhostBadge({ size = 56, className = '' }: { size?: number; className?: string }) {
   return (
     <span
-      className={`grid shrink-0 place-items-center rounded-[26%] border border-white/30 bg-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_18px_38px_-22px_rgba(72,52,180,0.6)] backdrop-blur-xl dark:border-white/12 dark:bg-white/[0.06] ${className}`}
+      className={`relative shrink-0 overflow-hidden rounded-[22%] border border-line bg-surface ${className}`}
       style={{ width: size, height: size }}
     >
-      <GhostMark className="size-[74%]" glow />
+      <GhostMark className="absolute inset-[7%] size-auto" />
     </span>
   )
 }

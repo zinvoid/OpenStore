@@ -108,7 +108,7 @@ export default function Browse() {
           className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[12px] font-medium transition ${
             !category
               ? 'border-transparent bg-accent-soft text-accent-ink'
-              : 'border-line bg-white/10 text-muted hover:text-ink dark:bg-white/[0.04]'
+              : 'border-line bg-surface text-muted hover:text-ink'
           }`}
         >
           Tudo
@@ -121,7 +121,7 @@ export default function Browse() {
             className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[12px] font-medium transition ${
               category === cat.key
                 ? 'border-transparent bg-accent-soft text-accent-ink'
-                : 'border-line bg-white/10 text-muted hover:text-ink dark:bg-white/[0.04]'
+                : 'border-line bg-surface text-muted hover:text-ink'
             }`}
           >
             {cat.key}
@@ -145,7 +145,7 @@ export default function Browse() {
         )}
 
         {apps && apps.length === 0 && (
-          <div className="flex flex-col items-center rounded-[var(--radius-card)] border border-dashed border-line-strong bg-white/10 px-6 py-16 text-center dark:bg-white/[0.03]">
+          <div className="flex flex-col items-center rounded-[var(--radius-card)] border border-dashed border-line-strong bg-surface px-6 py-16 text-center">
             <SearchIcon className="size-7 text-muted" />
             <p className="mt-3 text-[14px] font-semibold">Nada encontrado</p>
             <p className="mt-1 max-w-sm text-[12.5px] text-muted">

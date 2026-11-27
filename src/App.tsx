@@ -9,6 +9,8 @@ import Publish from './pages/Publish'
 import Library from './pages/Library'
 import SignIn from './pages/SignIn'
 import Landing from './pages/Landing'
+import GuideHub, { GuidePage } from './pages/Guide'
+import DownloadPage from './pages/Download'
 import { UpdateDialog } from './components/UpdateDialog'
 import { isDesktop } from './lib/desktop'
 
@@ -20,10 +22,26 @@ export default function App() {
     mainRef.current?.scrollTo({ top: 0 })
   }, [location.pathname, location.search])
 
-  // A landing page é o site público; a loja em si vive em /home.
-  // Dentro do app do desktop, a loja abre direto, sem passar pela landing.
-  if (location.pathname === '/' && !isDesktop) return <Landing />
-  if (location.pathname === '/') return <Navigate to="/home" replace />
+  // Site público (landing, guias e download) roda fora do shell da loja.
+  // A loja em si vive em /home; dentro do app do desktop ela abre direto.
+  const isPublic =
+    location.pathname === '/' ||
+    location.pathname === '/download' ||
+    location.pathname === '/guia' ||
+    location.pathname.startsWith('/guia/')
+
+  if (isPublic) {
+    if (location.pathname === '/' && isDesktop) return <Navigate to="/home" replace />
+    return (
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/guia" element={<GuideHub />} />
+        <Route path="/guia/:slug" element={<GuidePage />} />
+        <Route path="/download" element={<DownloadPage />} />
+        <Route path="*" element={<Navigate to="/guia" replace />} />
+      </Routes>
+    )
+  }
 
   return (
     <div className="app-bg relative flex h-full w-full overflow-hidden text-ink">
