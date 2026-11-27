@@ -39,7 +39,7 @@ function SiteHeader() {
     <header className="site-header">
       <div className="site-container site-header-inner">
         <Link to="/" className="site-brand" aria-label="OpenStore">
-          <GhostMark className="size-[36px]" />
+          <GhostMark className="size-[40px]" />
           <span>OpenStore</span>
         </Link>
         <span className="site-version hidden sm:inline-flex">v{BUILD_VERSION}</span>
@@ -88,7 +88,7 @@ function SiteFooter() {
         <div className="site-footer-inner">
           <div>
             <p className="site-foot-brand">
-              <GhostMark className="size-7" />
+              <GhostMark className="size-8" />
               OpenStore
             </p>
             <p className="site-foot-text">

@@ -761,7 +761,7 @@ function EditSkeleton() {
 function EditBlocked({ message }: { message: string }) {
   return (
     <div className="mx-auto w-full max-w-[520px] px-4 py-16 text-center">
-      <GhostBadge size={76} className="mx-auto" />
+      <GhostBadge size={96} className="mx-auto" />
       <h1 className="mt-5 font-display text-[20px] font-semibold">Não foi possível editar</h1>
       <p className="mt-2 text-[12.5px] leading-relaxed text-muted">{message}</p>
       <Link
@@ -777,7 +777,7 @@ function EditBlocked({ message }: { message: string }) {
 function AccountGate() {
   return (
     <div className="mx-auto w-full max-w-[520px] px-4 py-14 text-center sm:py-20">
-      <GhostBadge size={84} className="mx-auto" />
+      <GhostBadge size={104} className="mx-auto" />
       <h1 className="mt-5 font-display text-[22px] font-semibold tracking-[-0.02em]">
         Crie uma conta para publicar
       </h1>

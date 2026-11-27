@@ -43,7 +43,7 @@ export default function Home() {
       <div className="mx-auto w-full max-w-[1500px] space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <section className="glass-panel relative overflow-hidden px-6 py-16 text-center">
           <div className="relative mx-auto flex max-w-[480px] flex-col items-center">
-            <GhostBadge size={92} />
+            <GhostBadge size={120} />
             <h1 className="title-soft mt-6 font-display text-[26px] font-semibold sm:text-[30px]">
               A vitrine está começando
             </h1>

@@ -83,7 +83,7 @@ function NotFound() {
       </p>
       <Link
         to="/home"
-        className="mt-6 inline-flex rounded-md bg-accent px-4 py-2 text-[13px] font-semibold text-white"
+        className="mt-6 inline-flex rounded-md bg-ink px-4 py-2 text-[13px] font-semibold text-bg"
       >
         Voltar ao início
       </Link>

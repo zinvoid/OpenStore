@@ -396,12 +396,12 @@ export const DOCS: DocPage[] = [
       {
         kind: 'code',
         caption: 'Windows PowerShell',
-        text: 'Get-FileHash .\\OpenStore.Setup.1.6.0.exe -Algorithm SHA256',
+        text: 'Get-FileHash .\\OpenStore.Setup.1.6.1.exe -Algorithm SHA256',
       },
       {
         kind: 'code',
         caption: 'Linux',
-        text: 'sha256sum OpenStore-1.6.0-x86_64.AppImage',
+        text: 'sha256sum OpenStore-1.6.1-x86_64.AppImage',
       },
       {
         kind: 'p',

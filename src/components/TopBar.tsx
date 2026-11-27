@@ -47,10 +47,10 @@ export function TopBar() {
       }}
     >
       <Link to="/home" className="flex shrink-0 items-center gap-2.5 md:hidden" aria-label="OpenStore — início">
-        <GhostMark className="size-10" glow />
+        <GhostMark className="size-12" glow />
       </Link>
       <Link to="/home" className="hidden shrink-0 items-center gap-2.5 rounded-xl px-1 py-1 md:flex" aria-label="OpenStore — início">
-        <GhostMark className="size-10" glow />
+        <GhostMark className="size-12" glow />
         <span className="font-display text-[15px] font-semibold tracking-[-0.02em]">OpenStore</span>
       </Link>
 

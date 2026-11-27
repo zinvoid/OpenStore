@@ -32,7 +32,7 @@ export function applyTheme(choice: ThemeChoice) {
   root.dataset.theme = resolved
   root.style.colorScheme = resolved
   // mantém a barra de status do app desktop coerente com o tema
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#0a0c15' : '#eef1fa')
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#1b1b1b' : '#f2f2f2')
 }
 
 /** Lê a escolha salva e aplica antes do primeiro render. */

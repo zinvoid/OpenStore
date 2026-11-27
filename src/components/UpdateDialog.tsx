@@ -97,20 +97,12 @@ export function UpdateDialog() {
       <div
         className="glass-float animate-fade-up relative w-full max-w-[470px] overflow-hidden rounded-[14px]"
       >
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-70"
-          style={{
-            background:
-              'radial-gradient(90% 120% at 15% 0%, rgba(124,92,255,0.55) 0%, rgba(124,92,255,0) 65%)',
-          }}
-        />
-
         <div className="relative p-5">
           <div className="flex items-center gap-3">
             <img
               src={`${import.meta.env.BASE_URL}icon.png`}
               alt=""
-              className="size-14 shrink-0 drop-shadow-[0_12px_28px_rgba(107,87,245,0.4)]"
+              className="ghost-mark size-16 shrink-0 object-contain"
             />
             <div className="min-w-0">
               <p className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-accent-ink">

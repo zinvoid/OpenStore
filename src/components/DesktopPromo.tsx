@@ -18,7 +18,7 @@ export function DesktopPromo() {
     <section className="glass-panel p-5 sm:p-7">
       <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-4">
-          <GhostBadge size={64} className="mt-0.5" />
+          <GhostBadge size={72} className="mt-0.5" />
           <div className="max-w-[560px]">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-ink">App para desktop</p>
             <h2 className="title-soft mt-2 font-display text-[19px] font-semibold leading-tight sm:text-[23px]">

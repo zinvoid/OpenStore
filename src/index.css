@@ -13,9 +13,10 @@
   --color-ink: #1a1a1a;
   --color-ink-soft: #3c3c3c;
   --color-muted: #6c6c6c;
-  --color-accent: #3a35c4;
-  --color-accent-soft: #ecebfa;
-  --color-accent-ink: #322dab;
+  /* destaque neutro: preto no claro, branco no escuro — sem roxo */
+  --color-accent: #1a1a1a;
+  --color-accent-soft: #ebebeb;
+  --color-accent-ink: #1a1a1a;
   --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Inter", sans-serif;
   --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Inter", sans-serif;
   --radius-card: 10px;
@@ -59,9 +60,9 @@
   --color-ink: #f4f4f4;
   --color-ink-soft: #d2d2d2;
   --color-muted: #a3a3a3;
-  --color-accent: #a9a5ff;
-  --color-accent-soft: #2a2740;
-  --color-accent-ink: #c3c0ff;
+  --color-accent: #f4f4f4;
+  --color-accent-soft: #343434;
+  --color-accent-ink: #f4f4f4;
 
   --glass-lift: 0 1px 2px rgba(0, 0, 0, 0.3);
   --glass-lift-float: 0 16px 36px -20px rgba(0, 0, 0, 0.75);
@@ -82,9 +83,9 @@
     --color-ink: #f4f4f4;
     --color-ink-soft: #d2d2d2;
     --color-muted: #a3a3a3;
-    --color-accent: #a9a5ff;
-    --color-accent-soft: #2a2740;
-    --color-accent-ink: #c3c0ff;
+    --color-accent: #f4f4f4;
+    --color-accent-soft: #343434;
+    --color-accent-ink: #f4f4f4;
     --glass-lift: 0 1px 2px rgba(0, 0, 0, 0.3);
     --glass-lift-float: 0 16px 36px -20px rgba(0, 0, 0, 0.75);
     --ambient-base: var(--color-bg);
@@ -307,6 +308,18 @@
   display: none;
 }
 
+/* A arte da marca é preta com o fantasma branco: no tema escuro ela inverte
+   para continuar visível sem placa, moldura ou fundo atrás. */
+[data-theme="dark"] .ghost-mark {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .ghost-mark {
+    filter: invert(1);
+  }
+}
+
 /* texto grande usado em títulos de vitrine */
 .title-soft {
   letter-spacing: -0.028em;
@@ -524,8 +537,8 @@ textarea::placeholder {
   --s-ink: #16171b;
   --s-ink-soft: #3d4047;
   --s-muted: #6b6f76;
-  --s-accent: #3a35c4;
-  --s-accent-soft: #efedfb;
+  --s-accent: #16171b;
+  --s-accent-soft: #efeeea;
   --s-code: #f5f4f0;
   --s-shadow: 0 24px 48px -40px rgba(18, 20, 25, 0.45);
   --font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -549,8 +562,8 @@ textarea::placeholder {
   --s-ink: #eef0f4;
   --s-ink-soft: #c1c6cf;
   --s-muted: #8f959f;
-  --s-accent: #a9a5ff;
-  --s-accent-soft: #1d1c2e;
+  --s-accent: #eef0f4;
+  --s-accent-soft: #24272d;
   --s-code: #171a1f;
   --s-shadow: 0 24px 48px -40px rgba(0, 0, 0, 0.9);
 }
@@ -607,8 +620,8 @@ textarea::placeholder {
 }
 
 .site-brand img {
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
 }
 
 .site-version {

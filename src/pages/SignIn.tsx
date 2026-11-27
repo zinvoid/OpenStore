@@ -54,7 +54,7 @@ export default function SignIn() {
   return (
     <div className="mx-auto flex w-full max-w-[420px] flex-col px-4 py-10 sm:py-16">
       <div className="flex flex-col items-center text-center">
-        <GhostBadge size={76} />
+        <GhostBadge size={96} />
         <h1 className="mt-3 font-display text-[24px] font-semibold tracking-[-0.02em]">
           {signup ? 'Criar conta no OpenStore' : 'Entrar no OpenStore'}
         </h1>

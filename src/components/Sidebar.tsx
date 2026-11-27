@@ -32,7 +32,7 @@ export function Sidebar() {
   return (
     <aside className="glass-panel relative m-3 mr-0 hidden w-[86px] shrink-0 flex-col items-center rounded-[12px] py-4 md:flex">
       <NavLink to="/home" className="mb-6 block" aria-label="OpenStore — início">
-        <GhostMark className="size-[64px]" />
+        <GhostMark className="size-[72px]" />
       </NavLink>
 
       <nav className="flex w-full flex-col items-center gap-1.5 px-2">

@@ -405,9 +405,7 @@ function InstalledApps() {
         </div>
       ) : apps.length === 0 ? (
         <div className="mt-3 flex flex-col items-center rounded-xl border border-dashed border-line-strong bg-surface px-6 py-12 text-center">
-          <span className="grid size-16 place-items-center rounded-2xl bg-accent-soft">
-            <GhostMark className="size-10" />
-          </span>
+          <GhostMark className="size-16" />
           <h3 className="mt-3 font-display text-[16px] font-semibold">Nenhum app instalado ainda</h3>
           <p className="mt-1 max-w-[420px] text-[12px] leading-relaxed text-muted">
             Instale um app pela loja e ele vira um cartão aqui: abrir a pasta local, mover, buscar o executável, versões

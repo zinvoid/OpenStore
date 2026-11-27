@@ -148,8 +148,8 @@ os anexa à release no GitHub.
 ```bash
 npm version patch                       # ou edite "version" no package.json
 git push --follow-tags                  # dispara o build dos instaladores
-SUPABASE_ACCESS_TOKEN=... node scripts/publish-release.mjs 1.6.0 "Notas da versão" \
-  "https://github.com/zinvoid/OpenStore/releases/download/v1.6.0/OpenStore.Setup.1.6.0.exe"
+SUPABASE_ACCESS_TOKEN=... node scripts/publish-release.mjs 1.6.1 "Notas da versão" \
+  "https://github.com/zinvoid/OpenStore/releases/download/v1.6.1/OpenStore.Setup.1.6.1.exe"
 ```
 
 O último passo registra a versão em `openstore_releases`; a partir daí o site e o app passam a mostrar o

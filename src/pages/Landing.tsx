@@ -107,7 +107,7 @@ export default function Landing() {
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_420px]">
           <div>
             <div className="flex items-center gap-3.5">
-              <GhostMark className="size-12" />
+              <GhostMark className="size-14" />
               <p className="eyebrow">Loja aberta de aplicativos</p>
             </div>
             <h1 className="hero-title mt-3">
@@ -297,7 +297,7 @@ export default function Landing() {
           <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
             <div className="max-w-[34em]">
               <div className="flex items-center gap-2.5">
-                <GhostMark className="size-9" />
+                <GhostMark className="size-10" />
                 <p className="eyebrow">Código aberto</p>
               </div>
               <h2 className="section-title mt-2">O projeto inteiro está no GitHub</h2>
